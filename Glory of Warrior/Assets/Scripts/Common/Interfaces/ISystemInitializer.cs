@@ -1,6 +1,6 @@
 namespace Common.Interfaces
 {
-    public interface SystemInitializer
+    public interface ISystemInitializer
     {
         public void InitializeSystem();
     }
