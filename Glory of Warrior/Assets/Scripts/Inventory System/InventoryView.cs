@@ -40,8 +40,17 @@ namespace Inventory_System
             else 
                 EquipItem(item);
         }
+        
+        public void RemoveReplacedItem(int exceptionItemId, ItemType itemType)
+        {
+            var itemToRemove = _createdObjects.Keys.FirstOrDefault(keyItem =>
+                keyItem.Type == itemType && _createdObjects[keyItem].activeSelf && exceptionItemId != keyItem.Id);
+            
+            if(itemToRemove != null)
+                RemoveItem(itemToRemove);
+        }
 
-        public void EquipItem(Item item)
+        private void EquipItem(Item item)
         {
             if (_createdObjects.ContainsKey(item)) // If there is already gameobject created with same item id, actiavte it.
             {
@@ -53,22 +62,10 @@ namespace Inventory_System
             _createdObjects.Add(item, itemObject);
         }
 
-        public void RemoveItem(Item item)
+        private void RemoveItem(Item item)
         {
             _createdObjects[item].SetActive(false);
         }
-
-        public void RemoveReplacedItem(int exceptionItemId, ItemType itemType)
-        {
-            var itemToRemove = _createdObjects.Keys.FirstOrDefault(keyItem =>
-                keyItem.Type == itemType && _createdObjects[keyItem].activeSelf && exceptionItemId != keyItem.Id);
-        if(itemToRemove != null)
-            RemoveItem(itemToRemove);
-            /*foreach (Item keyItem in _createdObjects.Keys)
-            {
-                if(keyItem.Type == itemType && _createdObjects[keyItem].activeSelf && exceptionItemId != keyItem.Id)
-                    RemoveItem(keyItem);
-            }*/
-        }
+        
     }
 }

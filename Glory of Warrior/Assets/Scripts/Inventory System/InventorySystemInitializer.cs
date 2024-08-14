@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Inventory_System
 {
-    public class InventorySystemInitializer: MonoBehaviour, SystemInitializer
+    public class InventorySystemInitializer: MonoBehaviour, ISystemInitializer
     {
         [Inject] private InventoryController _inventoryController;
         [Inject] private InventoryModel _inventoryModel;
