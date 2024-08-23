@@ -1,13 +1,13 @@
-using System;
-using System.Runtime.CompilerServices;
-using Gameplay_System.Player.Model;
+using Gameplay_System.Helper;
 using UnityEngine;
 using Zenject;
 
-namespace Gameplay_System.Player.View
+namespace Gameplay_System.View
 {
     public class PlayerView: MonoBehaviour
     {
+        [Inject] private InputData _inputData;
+        
         private bool _isMoving;
         private Vector3 _moveDirection;
 
@@ -30,8 +30,7 @@ namespace Gameplay_System.Player.View
 
         private void UpdateMovementData()
         {
-            _moveDirection.x = Input.GetAxis("Horizontal");
-            _moveDirection.z = Input.GetAxis("Vertical");
+            _moveDirection = _inputData.MoveDirection;
             
             if(_isMoving && _moveDirection.magnitude <= 0.1f)
                 StopMove();

@@ -1,33 +1,48 @@
-using Gameplay_System.Player.Model;
-using Gameplay_System.Player.View;
+using Gameplay_System.Gameplay;
+using Gameplay_System.Model;
+using Gameplay_System.States.Player;
+using Gameplay_System.View;
+using UnityEngine;
 using Zenject;
 
-namespace Gameplay_System.Player.Controller
+namespace Gameplay_System.Controller
 {
-    public class PlayerController
+    public class PlayerController: IWarriorController
     {
         [Inject] private PlayerModel _playerModel;
         [Inject] private PlayerView _playerView;
-        [Inject] private PlayerStateMachine _stateMachine;
+        [Inject] private StateMachine _stateMachine;
+        [Inject] private PlayerStates _states; 
 
+        public event IWarriorController.OnSuccessfulAttackDelegate OnSuccessfulAttack;
+        
         public void Initialize()
         {
+            
+            _stateMachine.Initialize(_states.IdleState);
             _playerView.OnAttackButtonClicked += OnAttack;
             _playerView.OnMoveChanged += OnMoveChange;
             _playerModel.OnAttackStopped += OnReturnToMovement;
+            _playerModel.OnSuccessfulAttack += OnTargetHit;
+        }
+
+        private void OnTargetHit(GameObject target, int attackPower)
+        {
+            OnSuccessfulAttack?.Invoke(target, attackPower);
         }
 
         private void OnAttack()
         {
-            _stateMachine.SetState(_stateMachine.AttackState);
+            _stateMachine.SetState(_states.AttackState);
         }
-
+        
+        
         private void OnReturnToMovement()
         {
             if (_playerModel.IsMoving)
-                _stateMachine.SetState(_stateMachine.RunState);
+                _stateMachine.SetState(_states.RunState);
             else
-                _stateMachine.SetState(_stateMachine.IdleState);
+                _stateMachine.SetState(_states.IdleState);
         }
 
         private void OnMoveChange(bool isMoving)
@@ -45,6 +60,7 @@ namespace Gameplay_System.Player.Controller
             _playerView.OnAttackButtonClicked -= OnAttack;
             _playerView.OnMoveChanged -= OnMoveChange;
             _playerModel.OnAttackStopped -= OnReturnToMovement;
+            _playerModel.OnSuccessfulAttack -= OnTargetHit;
         }
         
     }
