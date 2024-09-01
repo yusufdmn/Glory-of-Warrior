@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Gameplay_System.Model;
+using UnityEngine;
 using Zenject;
 
 namespace Gameplay_System.States.Player
@@ -7,13 +8,25 @@ namespace Gameplay_System.States.Player
     public class AttackState: IState
     {
         private bool _hasAnimationStarted;
-        private const string _attackAnimationName = "Attack";
+        private string _attackAnimationName;
+        private int _attackParameter;
         [Inject] private PlayerModel _playerModel;
         [Inject] private AnimationManager _animationManager;
+
+        public void Initialize()
+        {
+            _attackAnimationName = _playerModel.Weapon.AnimationName;
+            _attackParameter = Animator.StringToHash(_attackAnimationName);
+        }
         
         public void OnEnter()
         {
-            _animationManager.Attack();
+            if (_attackAnimationName == null)
+            {
+                Initialize();
+            }
+            
+            _animationManager.Attack(_attackParameter);
             _playerModel.Attack();
             CheckAnimationStartAsync();
         }
@@ -42,7 +55,7 @@ namespace Gameplay_System.States.Player
             {
                 await Task.Delay(10); 
 
-                if (_animationManager.GetCurrentState().IsName("Attack"))
+                if (_animationManager.GetCurrentState().IsTag("Attack"))
                 {
                     _hasAnimationStarted = true;
                 }
