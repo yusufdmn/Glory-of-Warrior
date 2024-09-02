@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Inventory_System.ScriptableObjects;
 
 namespace Inventory_System
@@ -8,8 +7,14 @@ namespace Inventory_System
     {
         private readonly List<Item> _boughtItems = new List<Item>();
         private List<Item> _selectedItems = new List<Item>();
+        private BattleEquipments _playerBattleEquipments;
 
         public int Coin { get; private set; } = 10000;
+        
+        public void Initialize(BattleEquipments playerBattleEquipments)
+        {
+            _playerBattleEquipments = playerBattleEquipments;
+        }
 
         public void AddItem(Item item)
         {
@@ -26,13 +31,13 @@ namespace Inventory_System
 
         private void SelectItem(Item item)
         {
-            if (item.Type == ItemType.BodyArmor)
+            if (item.Type != ItemType.BodyArmor)
             {
-                _selectedItems.Add(item);
-                return;
+                // Remove the item with same type from list bcs it's a single item type
+                _selectedItems.Remove(_selectedItems.Find(itemInList => itemInList.Type == item.Type)); 
             }
-            // Remove the item with same type from list.
-            _selectedItems.Remove(_selectedItems.Find(itemInList => itemInList.Type == item.Type)); 
+            _selectedItems.Add(item);
+            _playerBattleEquipments.UpdateBattleEquipments(_selectedItems);
         }
 
         private void DeselectItem(Item item)
