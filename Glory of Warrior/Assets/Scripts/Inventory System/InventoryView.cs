@@ -66,6 +66,14 @@ namespace Inventory_System
         {
             _createdObjects[item].SetActive(false);
         }
-        
+
+        private void OnDisable()  // Destroy Unequipped items
+        {
+            foreach (GameObject equipment in _createdObjects.Values)
+            {
+                if (equipment.activeSelf == false)
+                    Destroy(equipment);
+            }
+        }
     }
 }
