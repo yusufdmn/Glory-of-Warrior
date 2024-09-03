@@ -4,6 +4,6 @@ namespace Inventory_System.Strategy
 {
     public interface IEquipStrategy
     {
-        public void Equip(InventoryView inventoryView, Item item);
+        void Equip(InventoryView inventoryView, Item item);
     }
 }

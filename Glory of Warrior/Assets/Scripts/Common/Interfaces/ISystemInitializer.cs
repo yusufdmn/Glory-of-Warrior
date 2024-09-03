@@ -2,6 +2,6 @@ namespace Common.Interfaces
 {
     public interface ISystemInitializer
     {
-        public void InitializeSystem();
+        void InitializeSystem();
     }
 }
