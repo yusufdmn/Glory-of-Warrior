@@ -6,14 +6,14 @@ namespace Gameplay_System.Model
 {
     public class PlayerModel: WarriorModel
     {
-        [Inject] private PlayerMovement _PlayerMovement;
+        [Inject] private PlayerMovement _playerMovement;
         
         public bool IsMoving { get; private set; }
         
-        public override void Initialize(IWeapon weapon)
+        public override void Initialize(Weapon weapon)
         {
             base.Initialize(weapon);
-            _movement = _PlayerMovement;
+            _movement = _playerMovement;
         }
         
         public void SetMovement(bool isMoving)
