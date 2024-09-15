@@ -16,6 +16,7 @@ namespace Gameplay_System.Controller
             enemyStates.PatrolState.Initialize(enemyModel);
             enemyStates.ChaseState.Initialize(enemyModel);
             enemyStates.AttackState.Initialize(enemyModel);
+            enemyStates.IdleState.Initialize(enemyModel);
             StartMachine(initialState);
         }
         public void StartMachine(IState initialState)
@@ -34,7 +35,6 @@ namespace Gameplay_System.Controller
         {
             if (_currentState == newState) // Don't allow re-entering the current state
                 return;
-            Debug.Log(newState);
             _currentState?.OnExit();
             newState.OnEnter();
             _currentState = newState;
