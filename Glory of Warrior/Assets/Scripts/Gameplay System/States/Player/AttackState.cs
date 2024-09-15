@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using Gameplay_System.Model;
 using UnityEngine;
@@ -13,9 +14,9 @@ namespace Gameplay_System.States.Player
         [Inject] private PlayerModel _playerModel;
         [Inject] private AnimationManager _animationManager;
 
-        public void Initialize()
+        private void Initialize()
         {
-            _attackAnimationName = _playerModel.Weapon.AnimationName;
+            _attackAnimationName = _playerModel.AttachedWeapon.AnimationName;
             _attackParameter = Animator.StringToHash(_attackAnimationName);
         }
         
@@ -28,15 +29,17 @@ namespace Gameplay_System.States.Player
             
             _animationManager.Attack(_attackParameter);
             _playerModel.Attack();
-            CheckAnimationStartAsync();
         }
 
         public void UpdateState()
         {
-            if(!_hasAnimationStarted)
+            if (!_hasAnimationStarted) // if the attack animation hasn't started yet
+            {
+                CheckAnimationStart();
                 return;
+            }
 
-            if (_animationManager.GetCurrentState().IsName(_attackAnimationName)) 
+            if (_animationManager.GetCurrentState().IsName(_attackAnimationName)) // if the attack animation is still playing
                 return;
             
             _playerModel.StopAttack();
@@ -48,19 +51,12 @@ namespace Gameplay_System.States.Player
         }
         
         
-        
-        private async void CheckAnimationStartAsync()
+        private void CheckAnimationStart() 
         {
-            while (!_hasAnimationStarted)
+            if (_animationManager.GetCurrentState().IsTag("Attack"))
             {
-                await Task.Delay(10); 
-
-                if (_animationManager.GetCurrentState().IsTag("Attack"))
-                {
-                    _hasAnimationStarted = true;
-                }
+                _hasAnimationStarted = true;
             }
-
         }
     }
 }

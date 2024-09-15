@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using Gameplay_System.Model;
 using UnityEngine;
@@ -19,8 +20,7 @@ namespace Gameplay_System.States.Enemy
             _animationManager = enemyModel.AnimationManager;
             
             _attackAnimationName = _enemyModel.AttachedWeapon.AnimationName;
-            _attackParameter = Animator.StringToHash(_attackAnimationName); 
-            
+            _attackParameter = Animator.StringToHash(_attackAnimationName);
             _hasInitialized = true;
         }
 
@@ -29,17 +29,22 @@ namespace Gameplay_System.States.Enemy
             if(!_hasInitialized)
                 return;
             
+            _animationManager.StopRun();
             _animationManager.Attack(_attackParameter);
             _enemyModel.Attack();
-            CheckAnimationStartAsync();
         }
 
         public void UpdateState()
         {
-            if(!_hasAnimationStarted)
-                return;
+            _enemyModel.WatchTarget();
 
-            if (_animationManager.GetCurrentState().IsName(_attackAnimationName)) 
+            if (!_hasAnimationStarted) // if the attack animation hasn't started yet
+            {
+                CheckAnimationStart();
+                return;
+            }
+
+            if (_animationManager.GetCurrentState().IsName(_attackAnimationName)) // if the attack animation is still playing
                 return;
             
             _enemyModel.StopAttack();
@@ -49,18 +54,13 @@ namespace Gameplay_System.States.Enemy
         {
             _hasAnimationStarted = false;
         }
-
         
-        private async void CheckAnimationStartAsync()
+        
+        private void CheckAnimationStart() 
         {
-            while (!_hasAnimationStarted)
+            if (_animationManager.GetCurrentState().IsTag("Attack"))
             {
-                await Task.Delay(10);
-
-                if (_animationManager.GetCurrentState().IsTag("Attack"))
-                {
-                    _hasAnimationStarted = true;
-                }
+                _hasAnimationStarted = true;
             }
         }
     }
