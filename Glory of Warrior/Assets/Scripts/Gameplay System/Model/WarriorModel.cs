@@ -59,9 +59,10 @@ namespace Gameplay_System.Model
         public void StopAttack()
         {
             IsAttacking = false;
+            AttachedWeapon.StopAttack();
             OnAttackStopped?.Invoke();
         }
-
+        
     }
 }
 
