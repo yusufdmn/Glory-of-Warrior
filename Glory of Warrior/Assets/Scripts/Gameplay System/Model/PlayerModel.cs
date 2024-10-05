@@ -1,3 +1,4 @@
+using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Weapons;
@@ -9,6 +10,7 @@ namespace Gameplay_System.Model
     public class PlayerModel: WarriorModel
     {
         [Inject] private PlayerMovement _playerMovement;
+        [Inject] private PlayerAnimationManager _playerAnimationManager;
         
         public bool IsMoving { get; private set; }
         
@@ -16,6 +18,7 @@ namespace Gameplay_System.Model
         {
             base.Initialize(weapon, healthModel, attackPower, defensePower);
             _movement = _playerMovement;
+            _animationManager = _playerAnimationManager;
         }
         
         public void SetMovement(bool isMoving)

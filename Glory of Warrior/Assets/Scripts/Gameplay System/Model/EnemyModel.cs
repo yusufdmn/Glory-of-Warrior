@@ -1,3 +1,4 @@
+using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Weapons;
@@ -9,7 +10,6 @@ namespace Gameplay_System.Model
     public class EnemyModel: WarriorModel
     {
         private EnemyMovement _enemyMovement;
-            
         public EnemyAnimationManager AnimationManager { get; private set; }
 
         public void Initialize(Weapon weapon, EnemyAnimationManager animationManager, 
@@ -17,6 +17,7 @@ namespace Gameplay_System.Model
         {
             base.Initialize(weapon, healthModel, attackPower, defensePower);
             AnimationManager = animationManager;
+            _animationManager = AnimationManager;
         }
 
         public void AddMovement(EnemyMovement enemyMovement)

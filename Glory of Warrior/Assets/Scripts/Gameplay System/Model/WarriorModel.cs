@@ -1,3 +1,4 @@
+using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Weapons;
@@ -10,7 +11,8 @@ namespace Gameplay_System.Model
     {
         private HealthModel _healthModel;
         protected IMovement _movement;
-        
+        protected IAnimationManager _animationManager;
+
         public delegate void OnSuccessfulAttackDelegate(GameObject target, int attackPower);
         public event OnSuccessfulAttackDelegate OnSuccessfulAttack;
         public delegate void OnAttackStoppedDelegate();
@@ -66,6 +68,7 @@ namespace Gameplay_System.Model
         private void Die()
         {
             OnDeath?.Invoke();
+            _animationManager.Die();
         }
         
         ~WarriorModel(){
