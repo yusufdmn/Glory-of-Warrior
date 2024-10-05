@@ -1,6 +1,6 @@
 namespace Health_System.Strategy
 {
-    public class PlayerDeathStartegy: IDeathStrategy
+    public class PlayerDeathStrategy: IDeathStrategy
     {
         public void Execute()
         {
