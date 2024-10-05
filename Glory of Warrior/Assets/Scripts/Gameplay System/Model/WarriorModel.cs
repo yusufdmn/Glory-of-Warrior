@@ -1,4 +1,5 @@
 using Gameplay_System.Helper;
+using Gameplay_System.Helper.Movements;
 using Gameplay_System.Weapons;
 using Health_System;
 using UnityEngine;
@@ -8,46 +9,45 @@ namespace Gameplay_System.Model
     public abstract class WarriorModel
     {
         private HealthModel _healthModel;
-        private int _attackPower;
-        
         protected IMovement _movement;
         
-        public Weapon AttachedWeapon { get; private set; }
-
         public delegate void OnSuccessfulAttackDelegate(GameObject target, int attackPower);
         public event OnSuccessfulAttackDelegate OnSuccessfulAttack;
-        
         public delegate void OnAttackStoppedDelegate();
         public event OnAttackStoppedDelegate OnAttackStopped; 
-
-        public bool IsAttacking { get; private set; }
-
-        public virtual void Initialize(Weapon weapon)
-        {
-            AttachedWeapon = weapon;
-            AttachedWeapon.OnSuccessfulAttack += OnHitTarget;
-        }
+        public delegate void OnDeathDelegate();
+        public event OnDeathDelegate OnDeath;
         
-        public void PrepareForBattle(HealthModel healthModel, int attackPower)
+
+        public Weapon AttachedWeapon { get; private set; }
+        public bool IsAttacking { get; private set; }
+        public int AttackPower { get; private set; }
+        public int DefensePower { get; private set; }
+        
+        
+        public virtual void Initialize(Weapon weapon, HealthModel healthModel, int attackPower, int defensePower)
         {
             _healthModel = healthModel;
-            _attackPower = attackPower;
+            AttackPower = attackPower;
+            DefensePower = defensePower;
+            AttachedWeapon = weapon;
+            AttachedWeapon.OnSuccessfulAttack += OnHitTarget;
+            healthModel.OnDeath += Die;
         }
 
-        public void OnHitTarget(GameObject target)
+        public void OnHitTarget(GameObject target) // when this warrior's weapon hits the target
         {
-            int attackPower = 10; // currently temporary, it will be calculated
-            OnSuccessfulAttack?.Invoke(target, attackPower);
+            OnSuccessfulAttack?.Invoke(target, AttackPower);
+        }
+        
+        public void TakeDamage(int damage)
+        {
+            _healthModel.DecreaseHealth(damage);
         }
         
         public void Move()
         {
             _movement.Move(); 
-        }
-        
-        public void DealWithAttack(int attackPower)
-        {
-            
         }
 
         public void Attack()
@@ -63,6 +63,16 @@ namespace Gameplay_System.Model
             OnAttackStopped?.Invoke();
         }
         
+        private void Die()
+        {
+            OnDeath?.Invoke();
+        }
+        
+        ~WarriorModel(){
+            AttachedWeapon.OnSuccessfulAttack -= OnHitTarget;
+            _healthModel.OnDeath -= Die;
+        }
     }
+       
 }
 
