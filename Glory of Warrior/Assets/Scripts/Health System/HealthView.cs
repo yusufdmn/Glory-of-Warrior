@@ -8,12 +8,12 @@ namespace Health_System
         private Slider _healthBarSlider;
         private float _healthValue;
 
-        private void Start()
+        private void Awake()
         {
             _healthBarSlider = GetComponent<Slider>();
         }
 
-        public HealthView(int maxHealth)
+        public void Initialize(int maxHealth)
         {
             _healthBarSlider.maxValue = maxHealth;
             UpdateHealthBar(maxHealth);
