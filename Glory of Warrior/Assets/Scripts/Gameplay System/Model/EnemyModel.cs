@@ -1,5 +1,7 @@
 using Gameplay_System.Helper;
+using Gameplay_System.Helper.Movements;
 using Gameplay_System.Weapons;
+using Health_System;
 using UnityEngine;
 
 namespace Gameplay_System.Model
@@ -10,9 +12,10 @@ namespace Gameplay_System.Model
             
         public EnemyAnimationManager AnimationManager { get; private set; }
 
-        public void Initialize(Weapon weapon, EnemyAnimationManager animationManager)
+        public void Initialize(Weapon weapon, EnemyAnimationManager animationManager, 
+            HealthModel healthModel, int attackPower, int defensePower)
         {
-            base.Initialize(weapon);
+            base.Initialize(weapon, healthModel, attackPower, defensePower);
             AnimationManager = animationManager;
         }
 
