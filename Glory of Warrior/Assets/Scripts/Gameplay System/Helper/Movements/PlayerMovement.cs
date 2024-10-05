@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Gameplay_System.Helper
+namespace Gameplay_System.Helper.Movements
 {
     public class PlayerMovement : MonoBehaviour, IMovement // Attached to an empty GameObject
     {

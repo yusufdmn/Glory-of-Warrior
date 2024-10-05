@@ -1,4 +1,3 @@
-using Gameplay_System.Gameplay;
 using Gameplay_System.Model;
 using Gameplay_System.States.Player;
 using Gameplay_System.View;
@@ -11,15 +10,14 @@ namespace Gameplay_System.Controller
     {
         [Inject] private PlayerModel _playerModel;
         [Inject] private PlayerView _playerView;
-        [Inject] private StateMachine _stateMachine;
+        [Inject] private PlayerStateMachine playerStateMachine;
         [Inject] private PlayerStates _states; 
 
         public event IWarriorController.OnSuccessfulAttackDelegate OnSuccessfulAttack;
         
         public void Initialize()
         {
-            
-            _stateMachine.Initialize(_states.IdleState);
+            playerStateMachine.StartMachine(_states.IdleState);
             _playerView.OnAttackButtonClicked += OnAttack;
             _playerView.OnMoveChanged += OnMoveChange;
             _playerModel.OnAttackStopped += OnReturnToMovement;
@@ -33,16 +31,16 @@ namespace Gameplay_System.Controller
 
         private void OnAttack()
         {
-            _stateMachine.SetState(_states.AttackState);
+            playerStateMachine.SetState(_states.AttackState);
         }
         
         
         private void OnReturnToMovement()
         {
             if (_playerModel.IsMoving)
-                _stateMachine.SetState(_states.RunState);
+                playerStateMachine.SetState(_states.RunState);
             else
-                _stateMachine.SetState(_states.IdleState);
+                playerStateMachine.SetState(_states.IdleState);
         }
 
         private void OnMoveChange(bool isMoving)

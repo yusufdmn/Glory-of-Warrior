@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Gameplay_System.Helper
+namespace Gameplay_System.Helper.Movements
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMovement: MonoBehaviour, IMovement
@@ -11,7 +11,7 @@ namespace Gameplay_System.Helper
         private Transform _target;
         private Vector3 _patrolPoint;
 
-        [SerializeField] private readonly float patrolRadius = 10f;
+        private readonly float patrolRadius = 10f;
         
         private void Awake()
         {
@@ -26,7 +26,7 @@ namespace Gameplay_System.Helper
 
         public void Patrol()
         {
-            if(_agent.remainingDistance < _agent.stoppingDistance + 0.2f)
+            if(_agent.remainingDistance < _agent.stoppingDistance + 0.05f)
             {
                 _patrolPoint = SetPatrolPoint();
             }
