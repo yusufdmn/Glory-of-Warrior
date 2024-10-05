@@ -5,11 +5,11 @@ namespace Gameplay_System.States.Player
 {
     public class IdleState: IState
     {
-        [Inject] private AnimationManager _animationManager;
+        [Inject] private PlayerAnimationManager _playerAnimationManager;
 
         public void OnEnter()
         {
-            _animationManager.StopRun();
+            _playerAnimationManager.StopRun();
         }
 
         public void UpdateState()

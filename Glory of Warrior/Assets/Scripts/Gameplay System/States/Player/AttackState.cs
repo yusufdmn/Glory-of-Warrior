@@ -12,7 +12,7 @@ namespace Gameplay_System.States.Player
         private string _attackAnimationName;
         private int _attackParameter;
         [Inject] private PlayerModel _playerModel;
-        [Inject] private AnimationManager _animationManager;
+        [Inject] private PlayerAnimationManager _playerAnimationManager;
 
         private void Initialize()
         {
@@ -27,7 +27,7 @@ namespace Gameplay_System.States.Player
                 Initialize();
             }
             
-            _animationManager.Attack(_attackParameter);
+            _playerAnimationManager.Attack(_attackParameter);
             _playerModel.Attack();
         }
 
@@ -39,7 +39,7 @@ namespace Gameplay_System.States.Player
                 return;
             }
 
-            if (_animationManager.GetCurrentState().IsName(_attackAnimationName)) // if the attack animation is still playing
+            if (_playerAnimationManager.GetCurrentState().IsName(_attackAnimationName)) // if the attack animation is still playing
                 return;
             
             _playerModel.StopAttack();
@@ -53,7 +53,7 @@ namespace Gameplay_System.States.Player
         
         private void CheckAnimationStart() 
         {
-            if (_animationManager.GetCurrentState().IsTag("Attack"))
+            if (_playerAnimationManager.GetCurrentState().IsTag("Attack"))
             {
                 _hasAnimationStarted = true;
             }

@@ -7,11 +7,11 @@ namespace Gameplay_System.States.Player
     public class RunState : IState
     {
         [Inject] private PlayerModel _playerModel;
-        [Inject] private AnimationManager _animationManager;
+        [Inject] private PlayerAnimationManager _playerAnimationManager;
 
         public void OnEnter()
         {
-            _animationManager.StartRun();
+            _playerAnimationManager.StartRun();
         }
 
         public void UpdateState()
