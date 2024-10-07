@@ -1,15 +1,14 @@
-using System;
 using Gameplay_System.Model;
+using Gameplay_System.States;
 using Gameplay_System.States.Enemy;
-using Unity.VisualScripting;
 using UnityEngine;
-using IState = Gameplay_System.States.IState;
 
 namespace Gameplay_System.Controller
 {
     public class EnemyStateMachine: MonoBehaviour, IStateMachine
     {
         private IState _currentState;
+        private bool _isEnabled;
 
         public void Initialize(IState initialState, EnemyModel enemyModel, EnemyStates enemyStates)
         {
@@ -19,18 +18,26 @@ namespace Gameplay_System.Controller
             enemyStates.IdleState.Initialize(enemyModel);
             StartMachine(initialState);
         }
-        public void StartMachine(IState initialState)
-        {
-            SetState(initialState);
-        }
-        
-        
         private void Update()
         {
+            if (!_isEnabled)
+                return;
             _currentState?.UpdateState();
         }
         
-
+        public void StartMachine(IState initialState)
+        {
+            _isEnabled = true;
+            SetState(initialState);
+        }
+        
+        public void StopMachine()
+        {
+            _isEnabled = false;
+            _currentState?.OnExit();
+            _currentState = null;
+        }
+        
         public void SetState(IState newState)
         {
             if (_currentState == newState) // Don't allow re-entering the current state
@@ -39,6 +46,5 @@ namespace Gameplay_System.Controller
             newState.OnEnter();
             _currentState = newState;
         }
-        
     }
 }

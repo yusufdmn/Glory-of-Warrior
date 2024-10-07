@@ -6,15 +6,26 @@ namespace Gameplay_System.Controller
     public class PlayerStateMachine: MonoBehaviour, IStateMachine
     {
         private IState _currentState;
+        private bool _isEnabled;
+        
+        private void Update()
+        {
+            if (!_isEnabled)
+                return;
+            _currentState?.UpdateState();
+        }
         
         public void StartMachine(IState initialState)
         {
+            _isEnabled = true;
             SetState(initialState);
         }
-
-        private void Update()
+        
+        public void StopMachine()
         {
-            _currentState?.UpdateState();
+            _isEnabled = false;
+            _currentState?.OnExit();
+            _currentState = null;
         }
         
         public void SetState(IState newState)
