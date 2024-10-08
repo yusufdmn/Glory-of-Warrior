@@ -1,4 +1,4 @@
-namespace Common.Interfaces
+namespace Helper.Interfaces
 {
     public interface ISystemInitializer
     {
