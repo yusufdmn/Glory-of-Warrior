@@ -1,6 +1,6 @@
 using Inventory_System.ScriptableObjects;
 
-namespace Inventory_System
+namespace Inventory_System.Model
 {
     public class MarketModel
     {

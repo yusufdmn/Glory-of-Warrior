@@ -1,14 +1,12 @@
-using System;
 using Inventory_System.ScriptableObjects;
-using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Inventory_System
+namespace Inventory_System.View
 {
     public class MarketView: MonoBehaviour
     {
         //UI Items
-        [SerializeField] [CanBeNull] private ItemStorage _itemStorage;
+        [SerializeField] private ItemStorage _itemStorage;
 
         public delegate void BuyButtonDelegate(Item clickedItem);
         public event BuyButtonDelegate OnBuyButtonClicked;

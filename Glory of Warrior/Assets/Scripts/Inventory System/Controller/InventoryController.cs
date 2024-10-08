@@ -1,8 +1,8 @@
+using Inventory_System.Model;
 using Inventory_System.ScriptableObjects;
-using Unity.VisualScripting;
-using UnityEngine;
+using Inventory_System.View;
 
-namespace Inventory_System
+namespace Inventory_System.Controller
 {
     public class InventoryController
     {

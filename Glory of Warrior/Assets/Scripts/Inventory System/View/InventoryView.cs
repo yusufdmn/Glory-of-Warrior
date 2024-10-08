@@ -3,7 +3,7 @@ using System.Linq;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
 
-namespace Inventory_System
+namespace Inventory_System.View
 {
     public enum SpawnParent
     {
