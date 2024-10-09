@@ -1,15 +1,15 @@
-using Common.Interfaces;
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Controller;
 using Gameplay_System.Gameplay_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
+using Gameplay_System.Helper.Weapons;
 using Gameplay_System.Initializers.Helper;
 using Gameplay_System.Model;
 using Gameplay_System.View;
-using Gameplay_System.Weapons;
 using Health_System.Initializer;
 using Health_System.Strategy;
+using Helper.Interfaces;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
 using Zenject;
@@ -18,10 +18,13 @@ namespace Gameplay_System.Initializers
 {
     public class PlayerSystemInitializer: MonoBehaviour, ISystemInitializer  // Attached to an empty GameObject
     {
-        [Inject] private PlayerAnimationManager playerAnimationManager;
+        [Inject] private DiContainer _container;
+        //MVC Variables
         [Inject] private PlayerModel _model;
-        [Inject] private PlayerController _controller;
         [Inject] private PlayerView _view;
+        [Inject] private PlayerController _controller;
+        //Other Systems
+        [Inject] private PlayerAnimationManager playerAnimationManager;
         [Inject] private PlayerStateMachine playerStateMachine;
         [Inject] private PlayerMovement _playerMovement;
         [Inject] private PowerCalculator _powerCalculator;
@@ -38,8 +41,11 @@ namespace Gameplay_System.Initializers
         {
             Weapon weapon = GameObject.FindWithTag("Player").GetComponentInChildren<Weapon>();
             BattleEquipments equipments = GameObject.FindWithTag("Player").GetComponent<Equipments>().EquippedItems;
-            _healthSystemInitializer = GameObject.FindWithTag("Player").GetComponent<HealthSystemInitializer>();
+            
+            _healthSystemInitializer = GameObject.FindWithTag("Player").AddComponent<HealthSystemInitializer>();
+            _container.Inject(_healthSystemInitializer);
             _healthSystemInitializer.LaunchTheInitializer(equipments, _playerDeathStrategy);
+            
             
             int attackPower = _powerCalculator.GetAttackPower(equipments);
             int defensePower = _powerCalculator.GetDefensePower(equipments);
