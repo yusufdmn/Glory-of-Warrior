@@ -1,6 +1,7 @@
-using Common.Interfaces;
+using System;
 using Health_System.Initializer.Helper;
 using Health_System.Strategy;
+using Helper.Interfaces;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
 using Zenject;
@@ -12,17 +13,19 @@ namespace Health_System.Initializer
         [Inject] private HealthController healthController;
         [Inject] private HealthModel _healthModel;
         [Inject] private HealthCalculator _healthCalculator;
-        [SerializeField] private HealthView _healthView;
-        private BattleEquipments _battleEquipments; 
-
-        public HealthModel HealthModel => _healthModel;
+        private HealthView _healthView;
         
+        public HealthModel HealthModel => _healthModel;
+
         public void LaunchTheInitializer(BattleEquipments equipments, IDeathStrategy deathStrategy)
         {
-            _battleEquipments = equipments;
-            int maxHealth = _healthCalculator.GetMaxHealth(_battleEquipments);
+            GetComponentInChildren<Canvas>().transform.GetChild(0).gameObject.SetActive(true); // Activate the health bar
+            _healthView = GetComponentInChildren<HealthView>();
+            
+            int maxHealth = _healthCalculator.GetMaxHealth(equipments);
             
             _healthModel.Initialize(maxHealth, deathStrategy);
+            _healthView.Initialize(maxHealth);
             InitializeSystem();
         }
 

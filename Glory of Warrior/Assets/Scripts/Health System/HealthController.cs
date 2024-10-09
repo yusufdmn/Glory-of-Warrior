@@ -9,7 +9,6 @@ namespace Health_System
         {
             _healthView = healthView;
             _healthModel = healthModel;
-            healthView.Initialize(healthModel.MaxHealth);
             _healthModel.OnHealthChanged += UpdateView;
         }
 
