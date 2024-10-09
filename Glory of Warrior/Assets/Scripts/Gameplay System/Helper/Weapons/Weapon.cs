@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay_System.Weapons
+namespace Gameplay_System.Helper.Weapons
 {
     public abstract class Weapon: MonoBehaviour  // There can be new weapon types (ranged weapons) added in the future.
     {
