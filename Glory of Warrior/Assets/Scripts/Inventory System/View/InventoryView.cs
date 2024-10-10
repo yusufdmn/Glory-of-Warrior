@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
+using Zenject;
 
 namespace Inventory_System.View
 {
@@ -16,10 +17,11 @@ namespace Inventory_System.View
     {
         private Dictionary<SpawnParent, Transform> _spawnParents;
         private Dictionary<Item,GameObject> _createdObjects = new();
+        [Inject] DiContainer _container;
         
         [SerializeField] private Transform _rightHandTransform;
         [SerializeField] private Transform _leftHandTransform;
-        [SerializeField] private Transform _playerTransform;
+        [SerializeField] private Transform _armotSlotTransform;
         
         
         private void Start()
@@ -28,10 +30,9 @@ namespace Inventory_System.View
             {
                 [SpawnParent.LeftHand] = _leftHandTransform,
                 [SpawnParent.RightHand] = _rightHandTransform,
-                [SpawnParent.Player] = _playerTransform
+                [SpawnParent.Player] = _armotSlotTransform
             };
         }
-
         
         public void OnItemEquipment(Item item)
         {
@@ -58,7 +59,7 @@ namespace Inventory_System.View
                 return;
             }
              
-            GameObject itemObject = Instantiate(item.ItemPrefab, _spawnParents[item.SpawnParent]);
+            GameObject itemObject = _container.InstantiatePrefab(item.ItemPrefab, _spawnParents[item.SpawnParent]);
             _createdObjects.Add(item, itemObject);
         }
 
