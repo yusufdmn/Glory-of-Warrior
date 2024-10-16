@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2070788879907150986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8512074690171270798}
+  - component: {fileID: 5607234713712345558}
+  - component: {fileID: 9069586757832033023}
+  - component: {fileID: 4360336849572338260}
+  - component: {fileID: 1425638350523545817}
+  - component: {fileID: 453427230130588263}
+  m_Layer: 0
+  m_Name: Inventory Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8512074690171270798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.036037926, y: 1.1925349, z: -7.699329}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5607234713712345558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad187f35ac6547269d30d84c9b419ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems:
+  - {fileID: 11400000, guid: fc57f67d4533df345b82e384a1f5332d, type: 2}
+  - {fileID: 11400000, guid: 8dfb88a7b520e03479f791ec84ec82be, type: 2}
+  - {fileID: 11400000, guid: 637e411c968942d44bb55a8e8f4fea2f, type: 2}
+  - {fileID: 11400000, guid: 64edf8858aabd934c91bf7e923c3ca1a, type: 2}
+  - {fileID: 11400000, guid: 1aaf2b5db4fc3234daff1ffa97699e0b, type: 2}
+  - {fileID: 11400000, guid: 94787f92f212d2447ab65f870c3947fa, type: 2}
+  - {fileID: 11400000, guid: 2deafc9a0ae4dbb43919e3fcbdc97773, type: 2}
+  - {fileID: 11400000, guid: 0adb0403db373944ca34401a2a14aaa5, type: 2}
+  - {fileID: 11400000, guid: 4c108a67fcd0bdb448115f31f0cbe990, type: 2}
+--- !u!114 &9069586757832033023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf20b982f5b47f0bc6cdfc13775646b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerBattleEquipments: {fileID: 11400000, guid: b0bf76381e39c3d45aca0a959d6d97c7,
+    type: 2}
+--- !u!114 &4360336849572338260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b50571063424a89872f2166eb63c228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rightHandTransform: {fileID: 0}
+  _leftHandTransform: {fileID: 0}
+  _armorSlotTransform: {fileID: 0}
+--- !u!114 &1425638350523545817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07cbc296737447c975f61025b7a6a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemStorage: {fileID: 5607234713712345558}
+--- !u!114 &453427230130588263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070788879907150986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d2c85dd4504491900e76ea8aaf368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rootBone: {fileID: 0}
