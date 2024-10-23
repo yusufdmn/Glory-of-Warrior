@@ -10,7 +10,7 @@ namespace Json_Operations
         
         public BoneReader(string fileName)
         {
-            _filePath = Path.Combine(Application.dataPath, "Scripts/Json Operations/Json Files", fileName);
+            _filePath = Path.Combine(Application.streamingAssetsPath, fileName);
         }
         
         public Transform[] ReadBonesFromFile(Transform rootBone)
