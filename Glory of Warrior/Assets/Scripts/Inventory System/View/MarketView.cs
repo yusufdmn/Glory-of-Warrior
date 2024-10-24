@@ -17,12 +17,12 @@ namespace Inventory_System.View
 
         public void ShowSelectableItems()
         {
-            
+            // will be implemented later
         }
 
         public void LockExpensiveItems()
         {
-            
+            // will be implemented later
         }
 
         public void UpdateUIAfterBuy(Item item, int coin)  // Item can be smt else later 
@@ -33,12 +33,12 @@ namespace Inventory_System.View
 
         private void UpdateCoinText(int coinAmount)
         {
-            
+            // will be implemented later
         }
 
         private void UpdateItemUI()
         {
-            
+            // will be implemented later
         }
 
         public void OnBuyButton(Item clickedItem)
