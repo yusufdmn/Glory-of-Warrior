@@ -33,7 +33,7 @@ namespace Gameplay_System.Animation_Management
 
         public AnimatorStateInfo GetCurrentState()
         {
-            return _animator.GetCurrentAnimatorStateInfo(0);
+            return _animator.GetCurrentAnimatorStateInfo(1);
         }
         
     }
