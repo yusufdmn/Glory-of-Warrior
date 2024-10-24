@@ -17,13 +17,12 @@ namespace Gameplay_System.States.Player
 
         public void UpdateState()
         {
-            // decrease energy 
             _playerModel.Move();
         }
 
         public void OnExit()
         {
-            // stop decreasing energy 
+            _playerAnimationManager.StopRun();
         }
     }
 }
