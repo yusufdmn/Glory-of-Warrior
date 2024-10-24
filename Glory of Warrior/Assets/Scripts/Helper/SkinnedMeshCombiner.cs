@@ -1,12 +1,11 @@
 using Inventory_System.View.Helper;
 using UnityEngine;
-using Zenject;
 using System.Collections.Generic;
 
 namespace Helper
 {
     [RequireComponent(typeof(BoneStorage))]
-    public class MeshCombiner : MonoBehaviour
+    public class SkinnedMeshCombiner : MonoBehaviour
     {
         private SkinnedMeshRenderer[] _skinnedMeshRenderers;
         private List<CombineInstance> _combineInstances;
