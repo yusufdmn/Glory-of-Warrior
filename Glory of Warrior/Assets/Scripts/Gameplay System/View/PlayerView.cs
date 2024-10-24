@@ -1,4 +1,5 @@
 using Gameplay_System.Helper;
+using Helper;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Gameplay_System.View
     {
         [Inject] private InputData _inputData;
         
+        private GameObject _playerObject;
         private bool _isMoving;
         private Vector3 _moveDirection;
 
@@ -17,6 +19,12 @@ namespace Gameplay_System.View
         public delegate void OnMoveChangedDelegate(bool isMoving);
         public event OnMoveChangedDelegate OnMoveChanged;
        
+        
+        private void Start()
+        {
+            _playerObject = GameObject.FindWithTag("Player");
+      //      _playerObject.AddComponent<SkinnedMeshCombiner>();
+        }
         
         public void OnAttackButton() // for attack button 
         {
