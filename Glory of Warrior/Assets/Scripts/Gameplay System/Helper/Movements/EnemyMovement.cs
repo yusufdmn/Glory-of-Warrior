@@ -56,7 +56,15 @@ namespace Gameplay_System.Helper.Movements
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas))
             {
-                return hit.position;
+                // Check if the point is reachable
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
+                {
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        return hit.position; // Valid patrol point
+                    }
+                }
             }
 
             return Vector3.zero; // If no valid position is found
