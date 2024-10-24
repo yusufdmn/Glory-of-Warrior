@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3307942588220089376}
   - component: {fileID: -5112305107466911706}
   - component: {fileID: 5993965462441395515}
+  - component: {fileID: 480092648855324732}
   m_Layer: 0
   m_Name: Mace_1
   m_TagString: Untagged
@@ -28,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4670740254159423693}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.06138793, y: -0.7044371, z: -0.6946826, w: 0.13197042}
+  m_LocalRotation: {x: -0.06138877, y: -0.704437, z: -0.6946823, w: 0.13197124}
   m_LocalPosition: {x: -0.07938647, y: -0.015358086, z: 0.009008721}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.2489, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -84.224, y: -90, z: -74.263}
 --- !u!33 &7238639858380457042
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -124,3 +125,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &480092648855324732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670740254159423693}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08075761, y: 0.42515293, z: 0.13625915}
+  m_Center: {x: -0.012236932, y: -0.48489752, z: 0.0016245927}
