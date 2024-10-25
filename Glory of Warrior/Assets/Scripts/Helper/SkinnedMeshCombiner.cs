@@ -1,6 +1,7 @@
 using Inventory_System.View.Helper;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Helper
 {
@@ -13,8 +14,11 @@ namespace Helper
         private List<Matrix4x4> _bindPoses;
         private List<BoneWeight> _boneWeights;
         private BoneStorage _boneStorage;
+        private Material _sharedMaterial;
+        private SkinnedMeshRenderer _outputSkinnedMeshRenderer;
+        private Mesh _combinedMesh;
 
-        private void Start()
+        private async void Start()
         {
             _boneStorage = GetComponent<BoneStorage>();
             _skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -23,19 +27,19 @@ namespace Helper
             _bindPoses = new List<Matrix4x4>();
             _boneWeights = new List<BoneWeight>();
 
-            Material sharedMaterial = _skinnedMeshRenderers[0].sharedMaterial;
-            Mesh combinedMesh = CombineSkinnedMeshes();
+            _sharedMaterial = _skinnedMeshRenderers[0].sharedMaterial;
+            await CombineSkinnedMeshes();
             
             // Assign the combined mesh and bones to the output SkinnedMeshRenderer
-            SkinnedMeshRenderer _outputSkinnedMeshRenderer = gameObject.AddComponent<SkinnedMeshRenderer>();
-            _outputSkinnedMeshRenderer.sharedMesh = combinedMesh;
-            _outputSkinnedMeshRenderer.sharedMaterial = sharedMaterial;
+            _outputSkinnedMeshRenderer = gameObject.AddComponent<SkinnedMeshRenderer>();
+            _outputSkinnedMeshRenderer.sharedMesh = _combinedMesh;
+            _outputSkinnedMeshRenderer.sharedMaterial = _sharedMaterial;
             _outputSkinnedMeshRenderer.bones = _bones.ToArray();
             _outputSkinnedMeshRenderer.rootBone = _boneStorage.RootBone;
             _outputSkinnedMeshRenderer.sharedMesh.bindposes = _bindPoses.ToArray();
         }
 
-        private Mesh CombineSkinnedMeshes()
+        private Task CombineSkinnedMeshes()
         {
             int boneOffset = 0;
 
@@ -49,7 +53,7 @@ namespace Helper
                 };
                 _combineInstances.Add(combineInstance);
                 
-                // Store bone weights and bind poses
+                // Store bone weights
                 BoneWeight[] meshBoneWeights = skinnedMeshRenderer.sharedMesh.boneWeights;
                 foreach (BoneWeight boneWeight in meshBoneWeights)
                 {
@@ -69,11 +73,10 @@ namespace Helper
                 // Deactivate the original renderer
                 skinnedMeshRenderer.gameObject.SetActive(false);
             }
-
-            Mesh combinedMesh = new Mesh();
-            combinedMesh.CombineMeshes(_combineInstances.ToArray(), true, false);
-            combinedMesh.boneWeights = _boneWeights.ToArray();
-            return combinedMesh;
+            _combinedMesh = new Mesh();
+            _combinedMesh.CombineMeshes(_combineInstances.ToArray(), true, false);
+            _combinedMesh.boneWeights = _boneWeights.ToArray();
+            return Task.CompletedTask;
         }
     }
 }
