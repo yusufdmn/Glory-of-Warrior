@@ -6,8 +6,8 @@ Glory of Warrior is a fast-paced 3D casual mediavel themed battle game where the
 The project follows SOLID principles an MVC (Model-View-Controller) architecture with Dependency Injection (DI) via Zenject and a Finite State Machine (FSM) for managing gameplay flow, enabling modularity and efficient handling of AI, player states, and combat.
 
 ## Key Features
-- **Medieval Battle Arena:** Fight in immersive medieval environments.
-- **AI Enemies:** Challenging AI opponents with unique behaviors.
+- **Medieval Battle Arena:** Fight in medieval environment with medieval weapons.
+- **AI Enemies:** AI controlled opponents. 
 - **Equipment System:** Equip your character with various weapons and armor.
 - **Optimized:** CPU, GPU and Memory optimizations for a smooth gameplay.
 
@@ -17,12 +17,19 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 - **Strategy Pattern:** Implements different behaviors for death events of player and enemy.
 - **Observer Pattern:** Mostly used to handle events between model-controller, view-controller, and controller-controller.
 - **State Pattern:** For player and enemy state machines.
+- **Navmesh:** To control AI enemies in the battle area.
 - **Cinemachine**
 
+
 ## Optimization Techniques
+
 - **Gpu Instancing**
 - **Static and Dynamic batching**
 - **Custom skinned mesh combiner**
+
+> [!NOTE]
+> The drawcalls are reduced signifantly with the optimizations.
+
 
 
 ## Gameplay
