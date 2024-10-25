@@ -1,4 +1,5 @@
 using Inventory_System.Strategy;
+using Inventory_System.View;
 using UnityEngine;
 
 namespace Inventory_System.ScriptableObjects
@@ -20,7 +21,7 @@ namespace Inventory_System.ScriptableObjects
         public abstract IEquipStrategy EquipStrategy { get; }
         public abstract SpawnParent SpawnParent { get; }
         public abstract ItemType Type { get; }
-        public GameObject ItemPrefab => _itemPrefab;
+        public GameObject ItemPrefab { get => _itemPrefab; set => _itemPrefab = value; }
         public int Id => _id;
         public int Price
         {

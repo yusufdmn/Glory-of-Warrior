@@ -1,7 +1,6 @@
 using Gameplay_System.Animation_Management;
-using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
-using Gameplay_System.Weapons;
+using Gameplay_System.Helper.Weapons;
 using Health_System;
 using Zenject;
 

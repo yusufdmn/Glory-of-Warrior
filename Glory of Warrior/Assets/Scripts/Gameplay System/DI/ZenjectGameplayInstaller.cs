@@ -11,6 +11,7 @@ using Gameplay_System.View;
 using Health_System;
 using Health_System.Initializer.Helper;
 using Health_System.Strategy;
+using Inventory_System.View.Helper;
 using Zenject;
 
 namespace Gameplay_System.DI
@@ -73,6 +74,7 @@ namespace Gameplay_System.DI
     private void BindOtherComponents()
     {
         Container.Bind<PowerCalculator>().AsTransient();
+        Container.Bind<BoneStorage>().FromComponentsInHierarchy().AsTransient();
     }
 
     }

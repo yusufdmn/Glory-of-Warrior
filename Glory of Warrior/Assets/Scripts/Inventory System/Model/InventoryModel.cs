@@ -5,12 +5,12 @@ namespace Inventory_System.Model
 {
     public class InventoryModel
     {
-        private readonly List<Item> _boughtItems = new List<Item>();
-        private List<Item> _selectedItems = new List<Item>();
+        internal readonly List<Item> _boughtItems = new List<Item>();
+        internal List<Item> _selectedItems = new List<Item>();
         private BattleEquipments _playerBattleEquipments;
 
         public int Coin { get; private set; } = 10000;
-        
+            
         public void Initialize(BattleEquipments playerBattleEquipments)
         {
             _playerBattleEquipments = playerBattleEquipments;

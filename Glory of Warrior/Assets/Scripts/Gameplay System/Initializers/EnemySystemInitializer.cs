@@ -1,20 +1,21 @@
-using Common.Interfaces;
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Controller;
 using Gameplay_System.Gameplay_Management;
 using Gameplay_System.Helper.Movements;
+using Gameplay_System.Helper.Weapons;
 using Gameplay_System.Initializers.Helper;
 using Gameplay_System.Model;
 using Gameplay_System.View;
-using Gameplay_System.Weapons;
 using Health_System.Initializer;
 using Health_System.Strategy;
+using Helper.Interfaces;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
 using Zenject;
 
 namespace Gameplay_System.Initializers
 {
+    
     public class EnemySystemInitializer : MonoBehaviour, ISystemInitializer // Attached to enemy GameObjects
     {
         [Inject] private EnemyModel _model;

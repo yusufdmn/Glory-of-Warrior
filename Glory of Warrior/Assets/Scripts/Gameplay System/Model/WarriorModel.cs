@@ -1,7 +1,6 @@
 using Gameplay_System.Animation_Management;
-using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
-using Gameplay_System.Weapons;
+using Gameplay_System.Helper.Weapons;
 using Health_System;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Gameplay_System.Model
 {
     public abstract class WarriorModel
     {
-        private HealthModel _healthModel;
+        internal HealthModel _healthModel;
         protected IMovement _movement;
         protected IAnimationManager _animationManager;
 

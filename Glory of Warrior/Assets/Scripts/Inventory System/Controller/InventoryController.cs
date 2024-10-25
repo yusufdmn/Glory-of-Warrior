@@ -30,7 +30,7 @@ namespace Inventory_System.Controller
             _marketModel.BuyItem(item, currentCoin);
         }
 
-        private void HandleBoughtItem(Item item)
+        internal void HandleBoughtItem(Item item)
         {
             AddItemToInventory(item);
             SelectItem(item);

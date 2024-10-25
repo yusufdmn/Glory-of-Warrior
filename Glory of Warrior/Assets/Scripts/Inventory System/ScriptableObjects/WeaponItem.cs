@@ -1,4 +1,5 @@
 using Inventory_System.Strategy;
+using Inventory_System.View;
 using UnityEngine;
 
 namespace Inventory_System.ScriptableObjects

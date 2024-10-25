@@ -46,7 +46,6 @@ namespace Gameplay_System.Initializers
             _container.Inject(_healthSystemInitializer);
             _healthSystemInitializer.LaunchTheInitializer(equipments, _playerDeathStrategy);
             
-            
             int attackPower = _powerCalculator.GetAttackPower(equipments);
             int defensePower = _powerCalculator.GetDefensePower(equipments);
             
