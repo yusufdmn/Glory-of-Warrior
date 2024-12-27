@@ -12,8 +12,11 @@ namespace Gameplay_System.States.Player
         private bool _hasAnimationStarted;
         private string _attackAnimationName;
         private int _attackParameter;
+        
         [Inject] private PlayerModel _playerModel;
         [Inject] private PlayerAnimationManager _playerAnimationManager;
+
+        public UpdateMethod UpdateMethod  => UpdateMethod.Update;
 
         private void Initialize()
         {

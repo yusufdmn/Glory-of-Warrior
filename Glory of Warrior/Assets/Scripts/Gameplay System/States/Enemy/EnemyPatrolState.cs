@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Model;
+using Gameplay_System.States.Player;
 using UnityEngine;
 
 namespace Gameplay_System.States.Enemy
@@ -13,6 +14,8 @@ namespace Gameplay_System.States.Enemy
         private EnemyAnimationManager _animationManager;
         private Transform _target;
         private bool _enablePatrol;
+        
+        public UpdateMethod UpdateMethod  => UpdateMethod.Update;
             
         public void Initialize(EnemyModel enemyModel)
         {

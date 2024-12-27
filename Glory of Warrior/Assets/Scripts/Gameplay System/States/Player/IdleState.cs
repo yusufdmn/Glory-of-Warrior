@@ -7,7 +7,8 @@ namespace Gameplay_System.States.Player
     public class IdleState: IState
     {
         [Inject] private PlayerAnimationManager _playerAnimationManager;
-
+        public UpdateMethod UpdateMethod  => UpdateMethod.Update;
+        
         public void OnEnter()
         {
             _playerAnimationManager.StopRun();

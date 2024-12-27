@@ -2,6 +2,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Model;
+using Gameplay_System.States.Player;
 using UnityEngine;
 
 namespace Gameplay_System.States.Enemy
@@ -14,6 +15,8 @@ namespace Gameplay_System.States.Enemy
         private int _attackParameter;
         private EnemyModel _enemyModel;
         private EnemyAnimationManager _animationManager;
+        
+        public UpdateMethod UpdateMethod  => UpdateMethod.Update;
         
         public void Initialize(EnemyModel enemyModel)
         {

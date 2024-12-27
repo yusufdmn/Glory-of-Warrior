@@ -9,6 +9,7 @@ namespace Gameplay_System.States.Player
     {
         [Inject] private PlayerModel _playerModel;
         [Inject] private PlayerAnimationManager _playerAnimationManager;
+        public UpdateMethod UpdateMethod => UpdateMethod.FixedUpdate;
 
         public void OnEnter()
         {
