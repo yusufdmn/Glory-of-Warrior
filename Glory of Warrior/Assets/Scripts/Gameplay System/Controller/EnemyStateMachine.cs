@@ -1,6 +1,7 @@
 using Gameplay_System.Model;
 using Gameplay_System.States;
 using Gameplay_System.States.Enemy;
+using Gameplay_System.States.Player;
 using UnityEngine;
 
 namespace Gameplay_System.Controller
@@ -22,8 +23,22 @@ namespace Gameplay_System.Controller
         {
             if (!_isEnabled)
                 return;
+            if(_currentState.UpdateMethod != UpdateMethod.Update)
+                return;
+            
             _currentState?.UpdateState();
         }
+        
+        private void FixedUpdate()
+        {
+            if (!_isEnabled)
+                return;
+            if(_currentState.UpdateMethod != UpdateMethod.FixedUpdate)
+                return;
+            
+            _currentState?.UpdateState();
+        }
+
         
         public void StartMachine(IState initialState)
         {
