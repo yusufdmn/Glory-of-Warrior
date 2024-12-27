@@ -6,6 +6,7 @@ namespace Health_System
     public class HealthModel
     {
         private IDeathStrategy _deathStrategy;
+        private bool _isAlive;
 
         public delegate void OnHealthChangedDelegate();
         public event OnHealthChangedDelegate OnHealthChanged;
@@ -43,6 +44,9 @@ namespace Health_System
 
         private void Die()
         {
+            _isAlive = false;
+            if (_isAlive) return;
+            
             OnDeath?.Invoke();
             _deathStrategy.Execute();
         }
