@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace Helper
 {
-    public class CustomBillboard : MonoBehaviour  // This script is used to make the object always face the camera
+    public class CustomBillboard : MonoBehaviour
     {
         private Camera _camera;
 
@@ -17,17 +17,23 @@ namespace Helper
         {
             KeepRotation();
         }
-    
+
         private void KeepRotation()
         {
+            if (_camera == null) 
+            {
+                _camera = Camera.main; 
+                return; 
+            }
+
             Vector3 direction = _camera.transform.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Euler(-rotation.eulerAngles.x, 0, 0);
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0); 
         }
-        
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _camera = Camera.main;  // Update the camera reference with the main camera in the new scene
+            _camera = Camera.main;
         }
 
         private void OnDestroy()
