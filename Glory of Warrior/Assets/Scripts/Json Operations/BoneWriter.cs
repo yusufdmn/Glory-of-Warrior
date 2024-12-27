@@ -1,21 +1,21 @@
 using System.IO;
+using Helper;
+using UnityEditor;
 using UnityEngine;
 
 namespace Json_Operations
 {
     public class BoneWriter: MonoBehaviour
     {
-        [SerializeField] private SkinnedMeshRenderer _renderer;
-        [SerializeField] private string _fileName;
-        private string _filePath;
+        [SerializeField] private SkinnedMeshRenderer _renderer; // The character model's SkinnedMeshRenderer component that contains the bones to save.
+        [SerializeField] private BoneStorageSO _boneStorageSO;
 
         private void Start()
         {
-            _filePath = Path.Combine(Application.streamingAssetsPath, _fileName);
-            WriteBonesToFile(_renderer);
+            WriteBonesToStorage(_renderer);
         }
 
-        private void WriteBonesToFile(SkinnedMeshRenderer renderer)
+        private void WriteBonesToStorage(SkinnedMeshRenderer renderer)
         {
             TransformDataList transformDataList = new TransformDataList();
     
@@ -26,7 +26,8 @@ namespace Json_Operations
     
             // Convert the data to JSON format and write into file.
             string json = JsonUtility.ToJson(transformDataList, true);
-            File.WriteAllText(_filePath, json);
+            _boneStorageSO.setBonesJson(json);
+         //   EditorUtility.SetDirty(_boneStorageSO);
         }
     }
 }

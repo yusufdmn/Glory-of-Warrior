@@ -1,4 +1,3 @@
-using Inventory_System.View.Helper;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;

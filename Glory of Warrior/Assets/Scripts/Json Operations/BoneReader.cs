@@ -6,22 +6,16 @@ namespace Json_Operations
 {
     public class BoneReader
     {
-        private string _filePath;
-        
-        public BoneReader(string fileName)
+        private string _bonesJson;
+
+        public BoneReader(string bonesJson)
         {
-            _filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+            _bonesJson = bonesJson;
         }
         
         public Transform[] ReadBonesFromFile(Transform rootBone)
         {
-            if (!File.Exists(_filePath))
-            {
-                return null;
-            }
-    
-            string json = File.ReadAllText(_filePath);
-            TransformDataList transformDataList = JsonUtility.FromJson<TransformDataList>(json);
+            TransformDataList transformDataList = JsonUtility.FromJson<TransformDataList>(_bonesJson);
     
             List<Transform> bones = new List<Transform>();
     

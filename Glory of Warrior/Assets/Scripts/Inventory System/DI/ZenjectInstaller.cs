@@ -1,7 +1,7 @@
+using Helper;
 using Inventory_System.Controller;
 using Inventory_System.Model;
 using Inventory_System.View;
-using Inventory_System.View.Helper;
 using Zenject;
 
 namespace Inventory_System.DI

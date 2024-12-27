@@ -1,4 +1,3 @@
-using Inventory_System.View.Helper;
 using UnityEngine;
 using Zenject;
 
