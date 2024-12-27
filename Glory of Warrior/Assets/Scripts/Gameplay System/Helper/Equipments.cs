@@ -1,3 +1,4 @@
+using System;
 using Inventory_System.ScriptableObjects;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ namespace Gameplay_System.Helper
     {
         [SerializeField] private BattleEquipments _equippedItems;
         public BattleEquipments EquippedItems => _equippedItems;
+
+        private void Start()
+        {
+            EquippedItems.UpdateBattleEquipments(null);
+        }
     }
     
 }
