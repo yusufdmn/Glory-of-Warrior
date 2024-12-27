@@ -22,23 +22,28 @@ namespace Gameplay_System.Helper.Movements
         {
             ApplySpeed();
             RotateForward();
-            _characterController.Move(_moveDirection);
+            MoveWithGravity(); // Added function to handle gravity
         }
-        
 
         private void ApplySpeed()
         {
             _moveDirection = _inputData.MoveDirection;
-            _moveDirection *= (Time.deltaTime * _moveSpeed);
-            _moveDirection *= (_moveSpeed * Time.deltaTime);
+            _moveDirection.y = 0; // Set vertical movement to 0
+            _moveDirection *= _moveSpeed * Time.deltaTime;
         }
-        
+
         private void RotateForward()
         {
             if (_moveDirection != Vector3.zero)
             {
                 _playerTransform.forward = _moveDirection;
             }
+        }
+
+        private void MoveWithGravity()
+        {
+            _moveDirection.y += Physics.gravity.y * Time.deltaTime; // Apply gravity
+            _characterController.Move(_moveDirection);
         }
     }
 }
