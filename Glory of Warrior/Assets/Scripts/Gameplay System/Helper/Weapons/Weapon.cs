@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay_System.Helper.Weapons
 {
     public abstract class Weapon: MonoBehaviour  // There can be new weapon types (ranged weapons) added in the future.
     {
+        [SerializeField] private AudioSource _weaponSound; // to play sound when the weapon hits a warrior
         private Transform _ownerOfWeapon;
         private bool _attacking;
         
@@ -28,8 +30,7 @@ namespace Gameplay_System.Helper.Weapons
             _attacking = false;
         }
         
-        
-        protected virtual void OnCollisionEnter(Collision other)
+        protected void OnTriggerEnter(Collider other)
         {
             if(other.transform == _ownerOfWeapon) // Ignore collision with the owner of the weapon
                 return;
@@ -37,10 +38,9 @@ namespace Gameplay_System.Helper.Weapons
                 return;
             if(!_attacking)
                 return;
-            
+            AudioPlayer.Instance.playSound(_weaponSound);
             OnSuccessfulAttack?.Invoke(other.gameObject);
             StopAttack();
         }
-        
     }
 }
