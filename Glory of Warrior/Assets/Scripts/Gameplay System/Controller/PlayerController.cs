@@ -21,7 +21,8 @@ namespace Gameplay_System.Controller
             _playerView.OnAttackButtonClicked += OnAttack;
             _playerView.OnMoveChanged += OnMoveChange;
             _playerModel.OnAttackStopped += OnReturnToMovement;
-            _playerModel.OnSuccessfulAttack += OnTargetHit;
+            _playerModel.OnSuccessfulAttack += OnTargetHit; 
+            _playerModel.OnDeath += OnDeath;
         }
 
         private void OnTargetHit(GameObject target, int attackPower)
@@ -52,6 +53,11 @@ namespace Gameplay_System.Controller
             
             OnReturnToMovement();
         }
+        
+        public void OnDeath()
+        {
+            _playerView.OnDeath();
+        }
 
         ~PlayerController()
         {
@@ -59,6 +65,7 @@ namespace Gameplay_System.Controller
             _playerView.OnMoveChanged -= OnMoveChange;
             _playerModel.OnAttackStopped -= OnReturnToMovement;
             _playerModel.OnSuccessfulAttack -= OnTargetHit;
+            _playerModel.OnDeath -= OnDeath;
         }
         
     }

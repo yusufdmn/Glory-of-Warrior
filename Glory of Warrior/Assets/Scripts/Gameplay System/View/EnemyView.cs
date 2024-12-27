@@ -34,6 +34,11 @@ namespace Gameplay_System.View
                 UpdateTargets();
             }
         }
+        
+        public void OnDeath () // Called when the warrior dies
+        {
+            gameObject.GetComponent<Collider>().enabled = false;
+        }
 
         private void UpdateTargets() 
         {
@@ -85,5 +90,7 @@ namespace Gameplay_System.View
                 OnAttackTargetDetected(null);
             }
         }
+        
+        
     }
 }

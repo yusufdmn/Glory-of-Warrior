@@ -9,7 +9,7 @@ namespace Gameplay_System.View
     {
         [Inject] private InputData _inputData;
         
-        private GameObject _playerObject;
+        private Collider _playerCollider;
         private bool _isMoving;
         private Vector3 _moveDirection;
 
@@ -22,8 +22,7 @@ namespace Gameplay_System.View
         
         private void Start()
         {
-            _playerObject = GameObject.FindWithTag("Player");
-      //      _playerObject.AddComponent<SkinnedMeshCombiner>();
+            _playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>();
         }
         
         public void OnAttackButton() // for attack button 
@@ -34,6 +33,8 @@ namespace Gameplay_System.View
         private void Update()
         {
             UpdateMovementData();
+            if (_inputData.DetectAttackInput())
+                OnAttackButton();
         }
 
         private void UpdateMovementData()
@@ -56,6 +57,11 @@ namespace Gameplay_System.View
         {
             _isMoving = false;
             OnMoveChanged?.Invoke(_isMoving);
+        }
+        
+        public void OnDeath()
+        {
+            _playerCollider.enabled = false;
         }
         
     }

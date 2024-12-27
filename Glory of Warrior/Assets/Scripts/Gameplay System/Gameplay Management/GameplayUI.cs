@@ -22,7 +22,7 @@ namespace Gameplay_System.Gameplay_Management
         
         public void UpdateRemainingEnemies(int remainingEnemies)
         {
-            _remainingEnemiesText.text = remainingEnemies.ToString();
+            _remainingEnemiesText.SetText(remainingEnemies.ToString());
         }
         /*
         public void UpdatePlayerKills(int playerKills)

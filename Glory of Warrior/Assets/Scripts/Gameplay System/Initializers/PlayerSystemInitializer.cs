@@ -44,7 +44,7 @@ namespace Gameplay_System.Initializers
             
             _healthSystemInitializer = GameObject.FindWithTag("Player").AddComponent<HealthSystemInitializer>();
             _container.Inject(_healthSystemInitializer);
-            _healthSystemInitializer.LaunchTheInitializer(equipments, _playerDeathStrategy);
+            _healthSystemInitializer.LaunchTheInitializer(equipments, _playerDeathStrategy, 3);
             
             int attackPower = _powerCalculator.GetAttackPower(equipments);
             int defensePower = _powerCalculator.GetDefensePower(equipments);
@@ -52,6 +52,7 @@ namespace Gameplay_System.Initializers
             _model.Initialize(weapon, _healthSystemInitializer.HealthModel, attackPower, defensePower);
             _controller.Initialize();
             _attackHandler.AddWarrior(weapon.transform.root.gameObject, _model, _controller);
+
         }
     }
 }

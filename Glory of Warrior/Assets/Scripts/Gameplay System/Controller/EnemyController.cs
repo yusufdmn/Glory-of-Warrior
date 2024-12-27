@@ -75,6 +75,7 @@ namespace Gameplay_System.Controller
         {
             _stateMachine.StopMachine();
             _model.AnimationManager.Die();
+            _view.OnDeath();
         }
         
         ~EnemyController()
