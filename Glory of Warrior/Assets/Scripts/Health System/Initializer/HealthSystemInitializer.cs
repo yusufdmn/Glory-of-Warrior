@@ -17,12 +17,13 @@ namespace Health_System.Initializer
         
         public HealthModel HealthModel => _healthModel;
 
-        public void LaunchTheInitializer(BattleEquipments equipments, IDeathStrategy deathStrategy)
+        public void LaunchTheInitializer(BattleEquipments equipments, IDeathStrategy deathStrategy, int healthMultiplier = 1)
         {
             GetComponentInChildren<Canvas>().transform.GetChild(0).gameObject.SetActive(true); // Activate the health bar
             _healthView = GetComponentInChildren<HealthView>();
             
             int maxHealth = _healthCalculator.GetMaxHealth(equipments);
+            maxHealth *= healthMultiplier;
             
             _healthModel.Initialize(maxHealth, deathStrategy);
             _healthView.Initialize(maxHealth);
