@@ -10,14 +10,27 @@ namespace Inventory_System
 {
     public class InventorySystemInitializer: MonoBehaviour, ISystemInitializer
     {
-        [Inject] private InventoryController _inventoryController;
-        [Inject] private InventoryModel _inventoryModel;
-        [Inject] private MarketModel _marketModel;
-        [Inject] private MarketView _marketView;
-        [Inject] private InventoryView _inventoryView;
-        [Inject] private ItemStorage _itemStorage;
+        private IInventoryController _inventoryController;
+        private IInventoryModel _inventoryModel;
+        private IMarketModel _marketModel;
+        private IMarketView _marketView;
+        private ItemStorage _itemStorage;
+        private IInventoryView _inventoryView;
         
         [SerializeField] private BattleEquipments _playerBattleEquipments;
+        
+        [Inject]
+        private void Construct(IInventoryController inventoryController, IInventoryModel inventoryModel, 
+            IMarketModel marketModel, IMarketView marketView, IInventoryView inventoryView, ItemStorage itemStorage)
+        {
+            _inventoryController = inventoryController;
+            _inventoryModel = inventoryModel;
+            _marketModel = marketModel;
+            _marketView = marketView;
+            _inventoryView = inventoryView;
+            _itemStorage = itemStorage;
+            InitializeSystem();
+        }
         
         public void InitializeSystem()
         {
@@ -26,9 +39,9 @@ namespace Inventory_System
             _inventoryController.Initialize(_inventoryModel, _inventoryView, _marketModel, _marketView);
         }
 
-        private void Awake()
-        {
-            InitializeSystem();
-        }
+        // private void Awake()
+        // {
+        //     InitializeSystem();
+        // }
     }
 }

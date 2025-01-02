@@ -3,17 +3,13 @@ using UnityEngine;
 
 namespace Inventory_System.View
 {
-    public class MarketView: MonoBehaviour
+    public class MarketView: MonoBehaviour, IMarketView
     {
         //UI Items
         [SerializeField] private ItemStorage _itemStorage;
 
-        public delegate void BuyButtonDelegate(Item clickedItem);
         public event BuyButtonDelegate OnBuyButtonClicked;
-
-        public delegate void SelectButtonDelegate(Item clickedItem);
         public event SelectButtonDelegate OnSelectButtonClicked;
-
 
         public void ShowSelectableItems()
         {

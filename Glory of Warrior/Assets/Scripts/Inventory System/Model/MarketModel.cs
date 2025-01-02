@@ -1,12 +1,9 @@
 using Inventory_System.ScriptableObjects;
-
 namespace Inventory_System.Model
 {
-    public class MarketModel
+    public class MarketModel: IMarketModel
     {
         public Item[] MarketItems { get; set; }
-        
-        public delegate void OnItemBoughtDelegate(Item item);
         public event OnItemBoughtDelegate OnItemBought;
 
         public void BuyItem(Item item ,int currentCoin)
@@ -16,5 +13,6 @@ namespace Inventory_System.Model
             
             OnItemBought?.Invoke(item);
         }
+
     }
 }

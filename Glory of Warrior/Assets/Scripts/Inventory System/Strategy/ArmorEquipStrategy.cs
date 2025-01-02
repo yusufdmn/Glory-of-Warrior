@@ -5,7 +5,7 @@ namespace Inventory_System.Strategy
 {
     public class ArmorEquipStrategy: IEquipStrategy
     {
-        public void Equip(InventoryView inventoryView, Item item)
+        public void Equip(IInventoryView inventoryView, Item item)
         {
             inventoryView.OnItemEquipment(item);
         }

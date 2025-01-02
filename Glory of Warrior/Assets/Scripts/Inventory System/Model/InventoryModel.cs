@@ -3,14 +3,17 @@ using Inventory_System.ScriptableObjects;
 
 namespace Inventory_System.Model
 {
-    public class InventoryModel
+    public class InventoryModel: IInventoryModel
     {
-        internal readonly List<Item> _boughtItems = new List<Item>();
-        internal List<Item> _selectedItems = new List<Item>();
+        private readonly List<Item> _boughtItems = new List<Item>();
+        private readonly List<Item> _selectedItems = new List<Item>();
         private BattleEquipments _playerBattleEquipments;
 
         public int Coin { get; private set; } = 10000;
-            
+
+        public IReadOnlyList<Item> BoughtItems => _boughtItems.AsReadOnly();
+        public IReadOnlyList<Item> SelectedItems => _selectedItems.AsReadOnly();
+        
         public void Initialize(BattleEquipments playerBattleEquipments)
         {
             _playerBattleEquipments = playerBattleEquipments;
@@ -58,4 +61,5 @@ namespace Inventory_System.Model
         
 
     }
+    
 }

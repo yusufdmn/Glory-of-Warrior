@@ -14,7 +14,7 @@ namespace Inventory_System.View
         Player
     }
     
-    public class InventoryView: MonoBehaviour
+    public class InventoryView: MonoBehaviour, IInventoryView
     {
         private Dictionary<SpawnParent, Transform> _spawnParents;
         private Dictionary<Item,GameObject> _createdObjects = new();

@@ -10,12 +10,13 @@ namespace Inventory_System.DI
     {
         public override void InstallBindings()
         {
+            Container.Bind<IInventoryController>().To<InventoryController>().AsSingle();
+            Container.Bind<IInventoryModel>().To<InventoryModel>().AsSingle();
+            Container.Bind<IMarketModel>().To<MarketModel>().AsSingle();
+            Container.Bind<IMarketView>().To<MarketView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<IInventoryView>().To<InventoryView>().FromComponentInHierarchy().AsSingle();
+            
             Container.Bind<ItemStorage>().FromComponentInHierarchy().AsTransient();
-            Container.Bind<MarketModel>().AsSingle();
-            Container.Bind<InventoryModel>().AsSingle();
-            Container.Bind<InventoryController>().AsSingle();
-            Container.Bind<InventoryView>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<MarketView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<BoneStorage>().FromComponentInHierarchy().AsSingle();
         }
     }

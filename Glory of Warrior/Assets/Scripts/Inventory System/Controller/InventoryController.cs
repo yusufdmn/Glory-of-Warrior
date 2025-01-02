@@ -4,15 +4,15 @@ using Inventory_System.View;
 
 namespace Inventory_System.Controller
 {
-    public class InventoryController
+    public class InventoryController: IInventoryController
     {
-        private InventoryModel _inventoryModel;
-        private InventoryView _inventoryView;
-        private MarketModel _marketModel;
-        private MarketView _marketView;
+        private IInventoryModel _inventoryModel;
+        private IInventoryView _inventoryView;
+        private IMarketModel _marketModel;
+        private IMarketView _marketView;
 
-        public void Initialize(InventoryModel inventoryModel, InventoryView inventoryView, 
-            MarketModel marketModel, MarketView marketView)
+        public void Initialize(IInventoryModel inventoryModel, IInventoryView inventoryView, 
+            IMarketModel marketModel, IMarketView marketView)
         {
             _inventoryModel = inventoryModel;            
             _marketModel = marketModel;
@@ -30,7 +30,7 @@ namespace Inventory_System.Controller
             _marketModel.BuyItem(item, currentCoin);
         }
 
-        internal void HandleBoughtItem(Item item)
+        private void HandleBoughtItem(Item item)
         {
             AddItemToInventory(item);
             SelectItem(item);
@@ -67,6 +67,6 @@ namespace Inventory_System.Controller
             _marketView.OnSelectButtonClicked -= SelectItem;
             _marketModel.OnItemBought -= HandleBoughtItem;
         }
-
+        
     }
 }
