@@ -1,11 +1,14 @@
-namespace Health_System
-{
-    public class HealthController
-    {
-        private HealthModel _healthModel;
-        private HealthView _healthView;
+using Health_System.Model;
+using Health_System.View;
 
-        public void Initialize(HealthModel healthModel, HealthView healthView)
+namespace Health_System.Controller
+{
+    public class HealthController: IHealthController
+    {
+        private IHealthModel _healthModel;
+        private IHealthView _healthView;
+
+        public void Initialize(IHealthModel healthModel, IHealthView healthView)
         {
             _healthView = healthView;
             _healthModel = healthModel;
