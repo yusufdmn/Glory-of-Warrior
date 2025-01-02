@@ -3428,7 +3428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootBone: {fileID: 1686484523430913204}
-  _fileName: Bones1.json
+  _boneStorage: {fileID: 11400000, guid: 71aa206b523381f4b8b3c4769d463813, type: 2}
 --- !u!114 &93570447681274200
 MonoBehaviour:
   m_ObjectHideFlags: 0
