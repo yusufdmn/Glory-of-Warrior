@@ -3,6 +3,7 @@ using Gameplay_System.Helper.Movements;
 using Gameplay_System.Helper.Weapons;
 using Gameplay_System.Model;
 using Health_System;
+using Health_System.Model;
 using Health_System.Strategy;
 using NSubstitute;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace Tests.Gameplay_System
 
             // Bind mocks
             _container.Bind<SwordWeapon>().FromNewComponentOnNewGameObject().AsTransient();
-            _container.Bind<HealthModel>().AsTransient();
+            _container.Bind<IHealthModel>().AsTransient();
             _container.Bind<TestWarriorModel>().AsTransient();
             _container.Bind<IMovement>().FromInstance(Substitute.For<IMovement>());
             _container.Bind<IAnimationManager>().FromInstance(Substitute.For<IAnimationManager>());
