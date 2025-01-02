@@ -1,80 +1,66 @@
-using System.Collections;
-using System.Reflection;
 using Inventory_System.Model;
 using Inventory_System.ScriptableObjects;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
-using Zenject;
 
 namespace Tests.Inventory_System
 {
     public class InventoryModelTest
     {
-        private InventoryModel _inventoryModel;
-        private DiContainer _container;
-        private Item _item1;
-        
+        private IInventoryModel _inventoryModel; // Use interface for dependency inversion
+        private BattleEquipments _mockBattleEquipments;
+        private Item _mockItem;
+
         [SetUp]
         public void SetUp()
         {
-            _container = new DiContainer();
-            
-            _container.Bind<InventoryModel>().AsSingle();
-            _container.Bind<MarketModel>().AsSingle();
-            _inventoryModel = _container.Resolve<InventoryModel>();
-            
-            BattleEquipments battleEquipments = ScriptableObject.CreateInstance<BattleEquipments>();
-            _inventoryModel.Initialize(battleEquipments);
+            // Mock the BattleEquipments dependency
+            _mockBattleEquipments = Substitute.For<BattleEquipments>();
+            _mockItem = Substitute.For<WeaponItem>();
 
-            _item1 = ScriptableObject.CreateInstance<BodyArmorItem>();
-            _item1.ItemPrefab = _container.CreateEmptyGameObject("emptyObject");
+            // Create the InventoryModel with the mocked dependency
+            _inventoryModel = new InventoryModel();
+            _inventoryModel.Initialize(_mockBattleEquipments);
+
+            // Create a mock item
         }
-        
+
         [Test]
         public void AddItemTest()
         {
-            _inventoryModel.AddItem(_item1);
-            Assert.Contains(_item1, (ICollection) GetPrivateField(_inventoryModel, "_boughtItems"), 
-                "Item should be added to the list.");
+            _inventoryModel.AddItem(_mockItem);
+            CollectionAssert.Contains(_inventoryModel.BoughtItems, _mockItem, "Item should be added to the list.");
         }
-                
+
         [Test]
         public void SelectItemTest()
         {
-            _inventoryModel.OnItemSelection(_item1);
-            Assert.AreEqual(1, _inventoryModel._selectedItems.Count, "SelectedItems should contain 1 item.");
-            Assert.AreEqual(_item1, _inventoryModel._selectedItems[0], "SelectedItems should contain item1.");
+            _inventoryModel.OnItemSelection(_mockItem);
+            Assert.AreEqual(1, _inventoryModel.SelectedItems.Count, "SelectedItems should contain 1 item.");
+            Assert.AreEqual(_mockItem, _inventoryModel.SelectedItems[0], "SelectedItems should contain item1.");
         }
-        
+
         [Test]
         public void BuyItemTest()
         {
-            _inventoryModel.AddItem(_item1);
-            Assert.Contains(_item1, (ICollection) GetPrivateField(_inventoryModel, "_boughtItems"), 
-                "Item should be added to the list.");
+            _inventoryModel.AddItem(_mockItem);
+            CollectionAssert.Contains(_inventoryModel.BoughtItems, _mockItem, "Item should be added to the list.");
         }
-        
+
         [Test]
         public void DeselectItemTest()
         {
-            _inventoryModel.OnItemSelection(_item1);
-            _inventoryModel.OnItemSelection(_item1);
-            Assert.AreEqual(0, _inventoryModel._selectedItems.Count, "SelectedItems should be empty.");
+            _inventoryModel.OnItemSelection(_mockItem);
+            _inventoryModel.OnItemSelection(_mockItem);
+            Assert.AreEqual(0, _inventoryModel.SelectedItems.Count, "SelectedItems should be empty.");
         }
 
-
-        // tear down
         [TearDown]
         public void TearDown()
         {
             _inventoryModel = null;
-            _item1 = null;
+            _mockItem = null;
         }
-
-        private object GetPrivateField(object someObject, string fieldName) =>
-            someObject.GetType()
-                .GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance)?
-                .GetValue(someObject);
-
     }
 }

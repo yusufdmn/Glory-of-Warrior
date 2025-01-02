@@ -1,75 +1,86 @@
-using System.Reflection;
 using Inventory_System.Controller;
 using Inventory_System.Model;
 using Inventory_System.ScriptableObjects;
 using Inventory_System.View;
+using NSubstitute;
 using NUnit.Framework;
-using UnityEngine;
-using Zenject;
 
 namespace Tests.Inventory_System
 {
     public class InventoryControllerTest
     {
         private InventoryController _inventoryController;
-        private InventoryModel _inventoryModel;
-        private InventoryView _inventoryView;
-        private MarketModel _marketModel;
-        private MarketView _marketView;
-        private DiContainer _container;
+        private IInventoryModel _mockInventoryModel;
+        private IInventoryView _mockInventoryView;
+        private IMarketModel _mockMarketModel;
+        private IMarketView _mockMarketView;
+        private Item _mockItem;
 
-        private Item item1;
-        
         [SetUp]
         public void SetUp()
         {
-            _container = new DiContainer();
-            
-            // Bind required components using Zenject
-            _container.Bind<InventoryModel>().AsSingle();
-            _container.Bind<MarketModel>().AsSingle();
-            _container.Bind<InventoryController>().AsSingle();
-            _container.Bind<InventoryView>().FromNewComponentOnNewGameObject().AsSingle();
-            _container.Bind<MarketView>().FromNewComponentOnNewGameObject().AsSingle();
-        
-            // Resolve all dependencies
-            _marketView = _container.Resolve<MarketView>();
-            _inventoryModel = _container.Resolve<InventoryModel>();
-            _marketModel = _container.Resolve<MarketModel>();
-            _inventoryView = _container.Resolve<InventoryView>();
+            // mocks
+            _mockInventoryModel = Substitute.For<IInventoryModel>();
+            _mockInventoryView = Substitute.For<IInventoryView>();
+            _mockMarketModel = Substitute.For<IMarketModel>();
+            _mockMarketView = Substitute.For<IMarketView>();
+            _mockItem = Substitute.For<WeaponItem>();
 
-            _container.Inject(_inventoryView);
-
-            // Set up initialize the inventory view and inventory model
-            Transform _mockTransform = _container.CreateEmptyGameObject("emptyObj").transform;
-            SetPrivateField(_inventoryView, "_rightHandTransform", _mockTransform);
-            SetPrivateField(_inventoryView, "_leftHandTransform", _mockTransform);
-            SetPrivateField(_inventoryView, "_armorSlotTransform", _mockTransform);
-            _inventoryView.Start();
-
-            BattleEquipments battleEquipments = ScriptableObject.CreateInstance<BattleEquipments>();
-            _inventoryModel.Initialize(battleEquipments);
-        
-            // Initialize the controller
-            _inventoryController = _container.Resolve<InventoryController>();
-            _inventoryController.Initialize(_inventoryModel, _inventoryView, _marketModel, _marketView);
-
-            item1 = ScriptableObject.CreateInstance<BodyArmorItem>();
-            item1.ItemPrefab = _container.CreateEmptyGameObject("emptyObject");
+            // Create the controller and initialize
+            _inventoryController = new InventoryController();
+            _inventoryController.Initialize(_mockInventoryModel, _mockInventoryView, _mockMarketModel, _mockMarketView);
         }
 
         [Test]
-        public void HandleBoughtItemTest()
+        public void HandleBoughtItem()
         {
-            _inventoryController.HandleBoughtItem(item1);
-            Assert.AreEqual(1, _inventoryModel._boughtItems.Count, "BoughtItems should contain 1 item.");
-            Assert.AreEqual(item1, _inventoryModel._boughtItems[0], "BoughtItems should contain item1.");
+            // Arrange
+            var itemPrice = 50;
+            var startingCoins = 100;
+
+            _mockItem.Price = itemPrice;
+            _mockInventoryModel.Coin.Returns(startingCoins);
+
+            // Raise the OnItemBought event 
+            _mockMarketModel.OnItemBought += Raise.Event<OnItemBoughtDelegate>(_mockItem);
+
+            // Assert
+            _mockInventoryModel.Received(1).AddItem(_mockItem);
+            _mockInventoryModel.Received(1).DecrementCoin(itemPrice);
+            _mockInventoryModel.Received(1).OnItemSelection(_mockItem);
+            _mockItem.EquipStrategy.Received(1).Equip(_mockInventoryView, _mockItem);
         }
-        
-        private void SetPrivateField(object someObject, string fieldName, object value) => 
-            someObject.GetType()
-                .GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?
-                .SetValue(someObject, value);
-                
+
+
+        [Test]
+        public void BuyItem_Should_Call_MarketModel_BuyItem()
+        {
+            // Arrange
+            var item = _mockItem;
+            var currentCoins = 100;
+            _mockInventoryModel.Coin.Returns(currentCoins);
+
+            // Raise the OnBuyButtonClicked event
+            _mockMarketView.OnBuyButtonClicked += Raise.Event<BuyButtonDelegate>(item);
+
+            // Assert
+            _mockMarketModel.Received(1).BuyItem(item, currentCoins);
+        }
+
+        [Test]
+        public void Destructor_Should_Unsubscribe_Events()
+        {
+            // Arrange
+            _inventoryController = null;
+
+            // Act
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+
+            // Assert
+            _mockMarketView.DidNotReceive().OnBuyButtonClicked -= Arg.Any<BuyButtonDelegate>();
+            _mockMarketView.DidNotReceive().OnSelectButtonClicked -= Arg.Any<SelectButtonDelegate>();
+            _mockMarketModel.DidNotReceive().OnItemBought -= Arg.Any<OnItemBoughtDelegate>();
+        }
     }
 }
