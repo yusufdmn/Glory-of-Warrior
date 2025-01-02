@@ -1,16 +1,14 @@
 using System;
 using Health_System.Strategy;
 
-namespace Health_System
+namespace Health_System.Model
 {
-    public class HealthModel
+    public class HealthModel: IHealthModel
     {
         private IDeathStrategy _deathStrategy;
         private bool _isAlive;
 
-        public delegate void OnHealthChangedDelegate();
         public event OnHealthChangedDelegate OnHealthChanged;
-        public delegate void OnDeathDelegate();
         public event OnDeathDelegate OnDeath;
         
         public int MinHealth { get; private set; }

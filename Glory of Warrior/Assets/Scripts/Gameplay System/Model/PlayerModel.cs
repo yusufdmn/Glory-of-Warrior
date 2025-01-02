@@ -2,6 +2,7 @@ using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Helper.Weapons;
 using Health_System;
+using Health_System.Model;
 using Zenject;
 
 namespace Gameplay_System.Model
@@ -13,7 +14,7 @@ namespace Gameplay_System.Model
         
         public bool IsMoving { get; private set; }
         
-        public override void Initialize(Weapon weapon, HealthModel healthModel, int attackPower, int defensePower)
+        public override void Initialize(Weapon weapon, IHealthModel healthModel, int attackPower, int defensePower)
         {
             base.Initialize(weapon, healthModel, attackPower, defensePower);
             _movement = _playerMovement;

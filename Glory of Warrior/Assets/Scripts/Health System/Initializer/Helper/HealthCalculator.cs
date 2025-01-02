@@ -5,11 +5,12 @@ namespace Health_System.Initializer.Helper
 {
     public class HealthCalculator
     {
-        public int GetMaxHealth(BattleEquipments battleEquipments)
+        public int GetMaxHealth(BattleEquipments battleEquipments, int healthMultiplier = 1)
         {
             int baseHealth = 100;
             int extraHealth = CalculateExtraHealth(battleEquipments);
             int maxHealth = baseHealth + extraHealth;
+            maxHealth *= healthMultiplier;
             return maxHealth;
         }
         

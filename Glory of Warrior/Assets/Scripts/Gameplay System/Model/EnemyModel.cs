@@ -2,6 +2,7 @@ using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Helper.Weapons;
 using Health_System;
+using Health_System.Model;
 using UnityEngine;
 
 namespace Gameplay_System.Model
@@ -12,7 +13,7 @@ namespace Gameplay_System.Model
         public EnemyAnimationManager AnimationManager { get; private set; }
 
         public void Initialize(Weapon weapon, EnemyAnimationManager animationManager, 
-            HealthModel healthModel, int attackPower, int defensePower)
+            IHealthModel healthModel, int attackPower, int defensePower)
         {
             base.Initialize(weapon, healthModel, attackPower, defensePower);
             AnimationManager = animationManager;

@@ -1,14 +1,14 @@
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Helper.Movements;
 using Gameplay_System.Helper.Weapons;
-using Health_System;
+using Health_System.Model;
 using UnityEngine;
 
 namespace Gameplay_System.Model
 {
     public abstract class WarriorModel
     {
-        internal HealthModel _healthModel;
+        internal IHealthModel _healthModel;
         protected IMovement _movement;
         protected IAnimationManager _animationManager;
 
@@ -26,7 +26,7 @@ namespace Gameplay_System.Model
         public int DefensePower { get; private set; }
         
         
-        public virtual void Initialize(Weapon weapon, HealthModel healthModel, int attackPower, int defensePower)
+        public virtual void Initialize(Weapon weapon, IHealthModel healthModel, int attackPower, int defensePower)
         {
             _healthModel = healthModel;
             AttackPower = attackPower;

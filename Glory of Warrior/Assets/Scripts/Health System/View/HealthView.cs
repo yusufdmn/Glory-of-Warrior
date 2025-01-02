@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Health_System
+namespace Health_System.View
 {
-    public class HealthView: MonoBehaviour
+    public class HealthView: MonoBehaviour, IHealthView
     {
         private Slider _healthBarSlider;
         private float _healthValue;
