@@ -8,16 +8,28 @@ namespace Gameplay_System.Controller
 {
     public class PlayerController: IWarriorController
     {
-        [Inject] private PlayerModel _playerModel;
-        [Inject] private PlayerView _playerView;
-        [Inject] private PlayerStateMachine playerStateMachine;
-        [Inject] private PlayerStates _states; 
-
-        public event IWarriorController.OnSuccessfulAttackDelegate OnSuccessfulAttack;
+        private PlayerModel _playerModel;
+        private PlayerView _playerView;
+        private PlayerStates _states; 
+        private PlayerStateMachine _playerStateMachine;
         
-        public void Initialize()
+        public event OnSuccessfulAttackDelegate OnSuccessfulAttack;
+
+        
+        [Inject]
+        public PlayerController(PlayerView playerView, PlayerStateMachine playerStateMachine, PlayerStates states)
         {
-            playerStateMachine.StartMachine(_states.IdleState);
+            _playerView = playerView;
+            _playerStateMachine = playerStateMachine;
+            _states = states;
+        }
+
+        
+        public void Initialize(PlayerModel playerModel)
+        {
+            _playerModel = playerModel;
+        
+            _playerStateMachine.StartMachine(_states.IdleState);
             _playerView.OnAttackButtonClicked += OnAttack;
             _playerView.OnMoveChanged += OnMoveChange;
             _playerModel.OnAttackStopped += OnReturnToMovement;
@@ -32,16 +44,16 @@ namespace Gameplay_System.Controller
 
         private void OnAttack()
         {
-            playerStateMachine.SetState(_states.AttackState);
+            _playerStateMachine.SetState(_states.AttackState);
         }
         
         
         private void OnReturnToMovement()
         {
             if (_playerModel.IsMoving)
-                playerStateMachine.SetState(_states.RunState);
+                _playerStateMachine.SetState(_states.RunState);
             else
-                playerStateMachine.SetState(_states.IdleState);
+                _playerStateMachine.SetState(_states.IdleState);
         }
 
         private void OnMoveChange(bool isMoving)
@@ -54,7 +66,7 @@ namespace Gameplay_System.Controller
             OnReturnToMovement();
         }
         
-        public void OnDeath()
+        private void OnDeath()
         {
             _playerView.OnDeath();
         }

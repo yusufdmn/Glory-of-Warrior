@@ -4,15 +4,15 @@ using Zenject;
 
 namespace Gameplay_System.View
 {
-    public class EnemyView: MonoBehaviour // It serves more like a detector
+    public class EnemyView: MonoBehaviour, IWarriorView // It serves more like a detector
     {
         private float _nextUpdateTime;
         private readonly float _chaseRange = 5f;
         private readonly float _attackRange = 1.5f;
         private Transform _chaseTarget;
         private Transform _attackTarget;
-        [Inject] private WarriorDetector _chaseDetector;
-        [Inject] private WarriorDetector _attackDetector;
+        private WarriorDetector _chaseDetector;
+        private WarriorDetector _attackDetector;
         
         public delegate void OnChaseTargetUpdatedDelegate(Transform target);
         public event OnChaseTargetUpdatedDelegate OnChaseTargetUpdated;
@@ -20,6 +20,13 @@ namespace Gameplay_System.View
         public delegate void OnAttackTargetUpdatedDelegate(Transform target);
         public event OnAttackTargetUpdatedDelegate OnAttackTargetUpdated;
 
+        [Inject]
+        public void Construct(WarriorDetector chaseDetector, WarriorDetector attackDetector)
+        {
+            _chaseDetector = chaseDetector;
+            _attackDetector = attackDetector;
+        }
+        
         private void Start()
         {
             _chaseDetector.Initialize(transform, _chaseRange);

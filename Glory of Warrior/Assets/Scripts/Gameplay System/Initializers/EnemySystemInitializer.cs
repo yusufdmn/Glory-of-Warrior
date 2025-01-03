@@ -18,16 +18,28 @@ namespace Gameplay_System.Initializers
     
     public class EnemySystemInitializer : MonoBehaviour, ISystemInitializer // Attached to enemy GameObjects
     {
-        [Inject] private EnemyModel _model;
-        [Inject] private EnemyController _controller;
-        [Inject] private PowerCalculator _powerCalculator;
-        [Inject] private AttackHandler _attackHandler;
-        [Inject] private EnemyDeathStrategy _enemyDeathStrategy;
+        private EnemyModel _model;
+        private EnemyController _controller;
+        private PowerCalculator _powerCalculator;
+        private AttackHandler _attackHandler;
+        private IDeathStrategy _enemyDeathStrategy;
 
         [SerializeField] private GameObject _enemy;
         [SerializeField] private Weapon _weapon;
         [SerializeField] private HealthSystemInitializer _healthSystemInitializer;
         [SerializeField] private BattleEquipments _equipments;
+        
+        [Inject]
+        public void Construct(EnemyModel model, EnemyController controller, PowerCalculator powerCalculator, 
+            AttackHandler attackHandler, IDeathStrategy enemyDeathStrategy)
+        {
+            _model = model;
+            _controller = controller;
+            _powerCalculator = powerCalculator;
+            _attackHandler = attackHandler;
+            _enemyDeathStrategy = enemyDeathStrategy;
+        }
+        
         private void Start()
         {
             InitializeSystem();

@@ -5,10 +5,9 @@ using Zenject;
 
 namespace Gameplay_System.View
 {
-    public class PlayerView: MonoBehaviour
+    public class PlayerView: MonoBehaviour, IWarriorView
     {
-        [Inject] private InputData _inputData;
-        
+        private InputData _inputData;
         private Collider _playerCollider;
         private bool _isMoving;
         private Vector3 _moveDirection;
@@ -19,15 +18,15 @@ namespace Gameplay_System.View
         public delegate void OnMoveChangedDelegate(bool isMoving);
         public event OnMoveChangedDelegate OnMoveChanged;
        
+        [Inject]
+        public void Construct(InputData inputData)
+        {
+            _inputData = inputData;
+        }
         
         private void Start()
         {
             _playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider>();
-        }
-        
-        public void OnAttackButton() // for attack button 
-        {
-            OnAttackButtonClicked?.Invoke();
         }
         
         private void Update()
@@ -35,6 +34,17 @@ namespace Gameplay_System.View
             UpdateMovementData();
             if (_inputData.DetectAttackInput())
                 OnAttackButton();
+        }
+        
+        
+        public void OnAttackButton() // for attack button 
+        {
+            OnAttackButtonClicked?.Invoke();
+        }
+        
+        public void OnDeath()
+        {
+            _playerCollider.enabled = false;
         }
 
         private void UpdateMovementData()
@@ -57,11 +67,6 @@ namespace Gameplay_System.View
         {
             _isMoving = false;
             OnMoveChanged?.Invoke(_isMoving);
-        }
-        
-        public void OnDeath()
-        {
-            _playerCollider.enabled = false;
         }
         
     }

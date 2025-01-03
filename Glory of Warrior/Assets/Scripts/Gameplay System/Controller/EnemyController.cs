@@ -11,9 +11,15 @@ namespace Gameplay_System.Controller
         private EnemyModel _model;
         private EnemyView _view;
         private EnemyStateMachine _stateMachine;
-        [Inject] private EnemyStates _states; 
+        private EnemyStates _states; 
         
-        public event IWarriorController.OnSuccessfulAttackDelegate OnSuccessfulAttack;
+        public event OnSuccessfulAttackDelegate OnSuccessfulAttack;
+        
+        [Inject]
+        public EnemyController(EnemyStates states)
+        {
+            _states = states;
+        }
         
         public void Initialize(EnemyModel enemyModel, EnemyView enemyView, EnemyStateMachine enemyStateMachine)
         {

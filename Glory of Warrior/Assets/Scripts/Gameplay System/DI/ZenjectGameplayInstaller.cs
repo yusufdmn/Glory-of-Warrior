@@ -1,17 +1,24 @@
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Controller;
+using Gameplay_System.Factory;
+using Gameplay_System.Factory.Params;
 using Gameplay_System.Gameplay_Management;
 using Gameplay_System.Helper;
 using Gameplay_System.Helper.Movements;
+using Gameplay_System.Initializers;
 using Gameplay_System.Initializers.Helper;
 using Gameplay_System.Model;
+using Gameplay_System.States;
 using Gameplay_System.States.Enemy;
 using Gameplay_System.States.Player;
 using Gameplay_System.View;
 using Health_System;
+using Health_System.Controller;
+using Health_System.Initializer;
 using Health_System.Initializer.Helper;
+using Health_System.Model;
 using Health_System.Strategy;
-using Inventory_System.View.Helper;
+using Helper;
 using Zenject;
 
 namespace Gameplay_System.DI
@@ -29,10 +36,15 @@ namespace Gameplay_System.DI
 
     private void BindPlayerComponents()
     {
-        Container.Bind<PlayerStates>().AsTransient();
-        Container.Bind<AttackState>().AsTransient();
-        Container.Bind<IdleState>().AsTransient();
-        Container.Bind<RunState>().AsTransient();
+        // Bind each state implementation to the same interface (IState) with identifiers
+        Container.Bind<IState>().WithId("IdleState").To<IdleState>().AsTransient();
+        Container.Bind<IState>().WithId("AttackState").To<AttackState>().AsTransient();
+        Container.Bind<IState>().WithId("RunState").To<RunState>().AsTransient();
+
+        
+        // Bind the PlayerStates class
+        Container.Bind<PlayerStates>().AsSingle();
+        
         Container.Bind<PlayerMovement>().FromComponentsInHierarchy().AsTransient();
         Container.Bind<PlayerStateMachine>().FromComponentsInHierarchy().AsTransient();
         Container.Bind<PlayerModel>().AsSingle();
@@ -52,15 +64,17 @@ namespace Gameplay_System.DI
         Container.Bind<EnemyModel>().AsTransient();
         Container.Bind<EnemyController>().AsTransient();
         Container.Bind<WarriorDetector>().AsTransient();
-        Container.Bind<EnemyDeathStrategy>().AsTransient();
+        Container.Bind<IDeathStrategy>().To<EnemyDeathStrategy>().AsTransient().WhenInjectedInto<EnemySystemInitializer>();
     }
 
     private void BindHealthComponents()
     {
-        Container.Bind<HealthModel>().AsTransient();
-        Container.Bind<HealthController>().AsTransient();
+        Container.BindFactory<HealthSystemInitializerParams, HealthSystemInitializer, HealthSystemInitializerFactory>()
+            .AsTransient();
+        Container.Bind<IHealthModel>().To<HealthModel>().AsTransient();
+        Container.Bind<IHealthController>().To<HealthController>().AsTransient();
         Container.Bind<HealthCalculator>().AsTransient();
-        Container.Bind<PlayerDeathStrategy>().AsSingle();
+        Container.Bind<IDeathStrategy>().To<PlayerDeathStrategy>().AsSingle().WhenInjectedInto<PlayerSystemInitializer>();
     }
 
     private void BindGameplayComponents()
