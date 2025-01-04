@@ -10,6 +10,14 @@ namespace Gameplay_System.Gameplay_Management
         [SerializeField] private TextMeshProUGUI _remainingEnemiesText; 
         //[SerializeField] private TextMeshProUGUI _playerKillsText;
         
+        public delegate void OnStartGameDelegate();
+        public event OnStartGameDelegate OnStartGame;
+        
+        void Awake()
+        {
+            OnStartGame?.Invoke();
+        }
+        
         public void ShowGameOverPanel()
         {
             _gameOverPanel.SetActive(true);
@@ -24,12 +32,6 @@ namespace Gameplay_System.Gameplay_Management
         {
             _remainingEnemiesText.SetText(remainingEnemies.ToString());
         }
-        /*
-        public void UpdatePlayerKills(int playerKills)
-        {
-            _playerKillsText.text = "Kills: " + playerKills;
-        }*/
-
         
     }
 }
