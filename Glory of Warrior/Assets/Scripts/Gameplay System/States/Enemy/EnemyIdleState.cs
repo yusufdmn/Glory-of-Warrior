@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Gameplay_System.States.Enemy
 {
-    public class EnemyIdleState:IState
+    public class EnemyIdleState: IEnemyState
     {
         private EnemyModel _enemyModel;
         private EnemyAnimationManager _animationManager;

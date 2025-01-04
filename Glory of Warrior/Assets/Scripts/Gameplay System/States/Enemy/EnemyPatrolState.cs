@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Gameplay_System.States.Enemy
 {
-    public class EnemyPatrolState: IState
+    public class EnemyPatrolState: IEnemyState
     {
         private EnemyModel _enemyModel;
         private EnemyAnimationManager _animationManager;

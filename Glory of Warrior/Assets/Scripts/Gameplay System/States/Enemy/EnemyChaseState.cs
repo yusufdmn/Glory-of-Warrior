@@ -4,7 +4,7 @@ using Gameplay_System.States.Player;
 
 namespace Gameplay_System.States.Enemy
 {
-    public class EnemyChaseState: IState
+    public class EnemyChaseState: IEnemyState
     {
         private EnemyModel _enemyModel;
         private EnemyAnimationManager _animationManager;

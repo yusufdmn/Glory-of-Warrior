@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay_System.States.Enemy
 {
-    public class EnemyAttackState: IState
+    public class EnemyAttackState: IEnemyState
     {
         private bool _hasAnimationStarted;
         private bool _hasInitialized;
