@@ -1,15 +1,21 @@
 using Gameplay_System.Animation_Management;
 using Gameplay_System.Model;
-using UnityEngine;
 using Zenject;
 
 namespace Gameplay_System.States.Player
 {
     public class RunState : IState
     {
-        [Inject] private PlayerModel _playerModel;
-        [Inject] private PlayerAnimationManager _playerAnimationManager;
+        private PlayerModel _playerModel;
+        private PlayerAnimationManager _playerAnimationManager;
         public UpdateMethod UpdateMethod => UpdateMethod.FixedUpdate;
+        
+        [Inject]
+        public RunState(PlayerModel playerModel, PlayerAnimationManager playerAnimationManager)
+        {
+            _playerModel = playerModel;
+            _playerAnimationManager = playerAnimationManager;
+        }
 
         public void OnEnter()
         {

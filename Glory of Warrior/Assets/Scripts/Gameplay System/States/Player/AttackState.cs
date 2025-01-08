@@ -13,11 +13,18 @@ namespace Gameplay_System.States.Player
         private string _attackAnimationName;
         private int _attackParameter;
         
-        [Inject] private PlayerModel _playerModel;
-        [Inject] private PlayerAnimationManager _playerAnimationManager;
+        private PlayerModel _playerModel;
+        private PlayerAnimationManager _playerAnimationManager;
 
         public UpdateMethod UpdateMethod  => UpdateMethod.Update;
 
+        [Inject]
+        public AttackState(PlayerModel playerModel, PlayerAnimationManager playerAnimationManager)
+        {
+            _playerModel = playerModel;
+            _playerAnimationManager = playerAnimationManager;
+        }
+        
         private void Initialize()
         {
             _attackAnimationName = _playerModel.AttachedWeapon.AnimationName;
