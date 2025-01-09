@@ -13,7 +13,8 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 
 ## Design Patterns and Technologies
 - **Model-View-Controller (MVC)**
-- **Dependency Incejtion (DI):** Implemented using Zenject. 
+- **Dependency Incejtion (DI):** Implemented using Zenject.
+- **Factory Pattern:** Creates Enemies at runtime.
 - **Strategy Pattern:** Implements different behaviors for death events of player and enemy.
 - **Observer Pattern:** Mostly used to handle events between model-controller, view-controller, and controller-controller.
 - **State Pattern:** For player and enemy state machines.
@@ -21,7 +22,7 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 - **Cinemachine**
 
 
-## Optimization Techniques
+## GPU Optimization Techniques
 
 - **Gpu Instancing**
 - **Static and Dynamic batching**
