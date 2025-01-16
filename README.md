@@ -1,6 +1,6 @@
 # Glory of Warrior
 
-Glory of Warrior is a fast-paced 3D casual mediavel themed battle game where the player fight AI-controlled enemies in an arena, aiming to be the last one standing. Characters use a variety of weapons and armors as they engage in the combat.
+Glory of Warrior is a fast-paced 3D casual mediavel themed battle game where the player fight AI-controlled enemies in an arena, aiming to be the last one standing. Characters use a variety of weapons and armors.
 
 ## Architecture
 The project follows SOLID principles an MVC (Model-View-Controller) architecture with Dependency Injection (DI) via Zenject and a Finite State Machine (FSM) for managing gameplay flow, enabling modularity and efficient handling of AI, player states, and combat.
@@ -13,7 +13,8 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 
 ## Design Patterns and Technologies
 - **Model-View-Controller (MVC)**
-- **Dependency Incejtion (DI):** Implemented using Zenject. 
+- **Dependency Incejtion (DI):** Implemented using Zenject.
+- **Factory Pattern:** Creates Enemies at runtime.
 - **Strategy Pattern:** Implements different behaviors for death events of player and enemy.
 - **Observer Pattern:** Mostly used to handle events between model-controller, view-controller, and controller-controller.
 - **State Pattern:** For player and enemy state machines.
@@ -21,7 +22,7 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 - **Cinemachine**
 
 
-## Optimization Techniques
+## Some of Optimization Techniques
 
 - **Gpu Instancing**
 - **Static and Dynamic batching**
@@ -34,5 +35,6 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 
 ## Gameplay
 
-https://github.com/user-attachments/assets/c24cda15-b2ac-4f7c-b35c-b0aa1505f6bd
+
+https://github.com/user-attachments/assets/e70bc8f5-09c0-4828-9f00-2ce3399d24bb
 
