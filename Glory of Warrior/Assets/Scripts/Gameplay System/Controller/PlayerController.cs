@@ -32,7 +32,7 @@ namespace Gameplay_System.Controller
             _playerStateMachine.StartMachine(_states.IdleState);
             _playerView.OnAttackButtonClicked += OnAttack;
             _playerView.OnMoveChanged += OnMoveChange;
-            _playerModel.OnAttackStopped += OnReturnToMovement;
+            //_playerModel.OnAttackStopped += OnReturnToMovement;
             _playerModel.OnSuccessfulAttack += OnTargetHit; 
             _playerModel.OnDeath += OnDeath;
         }
@@ -44,7 +44,8 @@ namespace Gameplay_System.Controller
 
         private void OnAttack()
         {
-            _playerStateMachine.SetState(_states.AttackState);
+            _playerModel.Attack();
+            //_playerStateMachine.SetState(_states.AttackState);
         }
         
         
@@ -60,8 +61,8 @@ namespace Gameplay_System.Controller
         {
             _playerModel.SetMovement(isMoving);
 
-            if (_playerModel.IsAttacking) // if player is attacking, don't allow state change
-                return;
+         //   if (_playerModel.IsAttacking) // if player is attacking, don't allow state change
+         //       return;
             
             OnReturnToMovement();
         }

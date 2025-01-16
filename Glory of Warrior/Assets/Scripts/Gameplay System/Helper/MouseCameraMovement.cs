@@ -27,7 +27,7 @@ namespace Gameplay_System.Helper
             if (Input.GetMouseButton(0)) // Right mouse button to rotate
             {
                 float mouseX = Input.GetAxis("Mouse X"); // Horizontal mouse movement
-                targetRotationY += mouseX * _rotationSpeed * Time.deltaTime; // Update target rotation
+                targetRotationY += mouseX * _rotationSpeed * Time.deltaTime * -1f; // Update target rotation
             }
 
             // Smoothly interpolate current rotation towards target rotation

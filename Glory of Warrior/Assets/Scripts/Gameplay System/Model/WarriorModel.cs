@@ -51,7 +51,7 @@ namespace Gameplay_System.Model
             _movement.Move(); 
         }
 
-        public void Attack()
+        public virtual void Attack()
         {
             IsAttacking = true;
             AttachedWeapon.Attack();
