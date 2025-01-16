@@ -22,7 +22,7 @@ The project follows SOLID principles an MVC (Model-View-Controller) architecture
 - **Cinemachine**
 
 
-## GPU Optimization Techniques
+## Some of Optimization Techniques
 
 - **Gpu Instancing**
 - **Static and Dynamic batching**
