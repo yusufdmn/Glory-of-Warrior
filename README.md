@@ -1,9 +1,9 @@
-# Glory of Warrior
+# Glory of Warrior - Made in Unity
 
 Glory of Warrior is a fast-paced 3D casual mediavel themed battle game where the player fight AI-controlled enemies in an arena, aiming to be the last one standing. Characters use a variety of weapons and armors.
 
 ## Architecture
-The project follows SOLID principles an MVC (Model-View-Controller) architecture with Dependency Injection (DI) via Zenject and a Finite State Machine (FSM) for managing gameplay flow, enabling modularity and efficient handling of AI, player states, and combat.
+The project follows SOLID principles an MVC (Model-View-Controller) architecture with Dependency Injection (DI) via Zenject and a Finite State Machine (FSM) for managing AI enemies, enabling modularity and efficient handling of AI, player states, and combat.
 
 ## Key Features
 - **Medieval Battle Arena:** Fight in medieval environment with medieval weapons.
